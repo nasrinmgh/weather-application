@@ -1,26 +1,36 @@
-const API_KEY = 'da423d4208c663d2a79bfdb258836ed5';
-const BASE_URL = 'http://api.openweathermap.org/';
-
 async function getWeather() {
-    const city = document.getElementById('searchInput').value;
+    const city = document.getElementById('searchInput').value.trim();
     if (!city) {
         alert('Please enter a city name');
         return;
     }
 
     try {
-        const response = await fetch(`${BASE_URL}weather?q=${city}&appid=${API_KEY}&units=metric`);
-        const data = await response.json();
-
-        if (data.cod === '404') {
+        const GEO_URL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`;
+        const GEO_response = await fetch(GEO_URL);
+        const GEO_data = await GEO_response.json();
+        if (!GEO_data.results || GEO_data.results.length === 0) {
             alert('City not found');
             return;
         }
 
-        document.getElementById('weatherResult').innerHTML = `
-        <h2>${data.name}</h2>
-        <p>${data.main.temp}°C</p>
-        <p>${data.weather[0].description}</p>`;
+        const cityNAME = GEO_data.results[0].name;
+        const latitude = GEO_data.results[0].latitude;
+        const longitude = GEO_data.results[0].longitude;
+
+        //call forecast API
+        const WEATHER_API = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m,relative_humidity_2m,precipitation,cloud_cover,visibility,temperature_80m&current=temperature_2m,precipitation,cloud_cover,relative_humidity_2m`;
+        const WEATHER_response = await fetch(WEATHER_API);
+        const WEATHER_data = await WEATHER_response.json();
+
+        //Manipulate DOM
+        const cityNameDisplay = document.getElementById('city');
+        const currentTemp = document.getElementById('temp');
+        const humidity = document.getElementById('humidity');
+
+        cityNameDisplay.textContent = cityNAME;
+        currentTemp.textContent = `${WEATHER_data.current.temperature_2m}°C`;
+        humidity.textContent = `${WEATHER_data.current.relative_humidity_2m}%`;
 
     } catch (error) {
         console.error('Error fetching weather data', error);
