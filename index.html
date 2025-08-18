@@ -10,21 +10,29 @@
 
 <body>
     <main>
-        <div class="stars">
-            <img id="poly14" src="assets/images/Polygon 14.png" alt="">
-            <img id="poly" src="assets/images/Polygon 20.png" alt="">
-            <img id="poly27" src="assets/images/Polygon 27.png" alt="">
-            <img id="poly3" src="assets/images/Polygon 3.png" alt="">
-            <img id="poly6" src="assets/images/Polygon 6.png" alt="">
-            <img id="poly15" src="assets/images/Polygon 15.png" alt="">
-        </div>
-
         <section class="main-info">
             <div class="search-bar">
                 <input id="searchInput" type="text" placeholder="Serach city">
                 <button id="searchBtn">Search</button>
             </div>
-            <article style="display: block;" id="weatherResult"></article>
+            <article id="weatherResult">
+                <h4 id="city"></h4>
+                <p id="temp"></p>
+                <div class="condition">
+                    <p id="humidity"></p>
+                    <p id="description"></p>
+                </div>
+            </article>
+            <article>
+                <div>
+                    <span></span>
+                    <span></span>
+                </div>
+                <detail class="daily-forecast">
+                    <div class="weather-card" style="display: block;"></div>
+                </detail>
+                <article class="five-days-forecast"></article>
+            </article>
         </section>
         <img src="assets/images/turbine.png" alt="Wind Turbine">
         <img src="assets/images/Ellipse 3.png" alt="">
