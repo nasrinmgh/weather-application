@@ -10,19 +10,29 @@
 
 <body>
     <main>
-        <section class="main-info">
+        <section class="saved-locations">
             <div class="search-bar">
-                <input id="searchInput" type="text" placeholder="Serach city">
-                <button id="searchBtn">Search</button>
+                <input class="glass" id="searchInput" type="text" placeholder="Add new location">
+                <button class="glass" id="searchBtn"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </button>
             </div>
+            <div class="saved-cities"></div>
+            <div class="glass" id="search-done-btn">Done</div>
+        </section>
+        <!-- for weather information display
             <article id="weatherResult">
                 <h4 id="city"></h4>
                 <p id="temp"></p>
                 <div class="condition">
                     <p id="humidity"></p>
-                    <p id="description"></p>
                 </div>
-            </article>
+            </article> 
+            -->
+
+        <!-- 
             <article>
                 <div>
                     <span></span>
@@ -33,9 +43,8 @@
                 </detail>
                 <article class="five-days-forecast"></article>
             </article>
-        </section>
-        <img src="assets/images/turbine.png" alt="Wind Turbine">
-        <img src="assets/images/Ellipse 3.png" alt="">
+           -->
+
     </main>
     <script src="/js/script.js"></script>
 </body>

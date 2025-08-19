@@ -1,55 +1,103 @@
+/* to reset styles */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     max-width: 100%;
-    max-height: 100vh;
+    max-height: 100%;
+    background: transparent;
     margin: 0;
-    backdrop-filter: ;
+    font-family: sans-serif;
+    padding: 0;
 }
 
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    position: fixed;
-    width: 100%;
-    max-width: 390px;
-    height: 1100px;
-    background-image: url('/assets/images/mountain.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+html {
+    background: linear-gradient(to left, rgba(30, 58, 138, 0.8), rgb(88, 28, 135, 0.8));
 }
 
-main img {
-    position: fixed;
-    z-index: 0;
-    bottom: 10rem;
+h1,h2, h3, h4, h5 {
+    font-weight: unset;
+    padding: unset;
+    margin: unset;
 }
 
-.stars {
-    position: absolute;
-    z-index: 10;
-    left: 5rem;
-    bottom: 5rem;
+input {
+    padding: unset;
+    margin: unset;
 }
 
-#poly {
-    position: fixed;
-    top: 10rem;
-    z-index: 12;
-    left: 5rem;
-}
+/* Media queries */
 
-.main-info {
+
+/* Search-Save page */
+main .saved-locations {
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
 }
 
-.main-info input {
-    border: 1px solid #000;
-    margin-top: 20rem;
+.glass {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.062);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.saved-locations .search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.search-bar input {
+    padding: .4rem;
+    padding-left: .8rem;
+    width: 100%;
+    max-width: 40%;
+    height: 1.1rem;
+}
+
+#searchInput::placeholder {
+    color: rgba(245, 241, 241, 0.5);
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#searchInput:focus {
+    outline: none;
+}
+
+/* TODO: fix the background color after autofill */
+#searchInput:-webkit-autofill {
+     backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.062);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar button {
+    width: 1.9rem;
+    height: 1.9rem;
+    text-align: center;
+}
+
+.search-bar button svg  {
+    color: rgba(245, 241, 241, 0.7);
+}
+
+.saved-locations #search-done-btn {
+    padding: .4rem;
+    padding-left: .8rem;
+    width: 100%;
+    max-width: 43%;
+    height: 1.1rem;
 }
