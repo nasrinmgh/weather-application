@@ -10,7 +10,48 @@
 
 <body>
     <main>
-        <section class="saved-locations">
+        <!-- LOGIN PAGE -->
+        <section class="enter-page">
+            <article class="intro">
+                <h2>Weather App</h2>
+                <p>Sign in to access your weather forecasts</p>
+            </article>
+            <article class="enter-form">
+                <detail class="form-toggle">
+                    <!-- TOGGLE TO LOGIN FORM -->
+                    <div class="login-option">
+                        <div>
+                            <p>Welcome Back</p>
+                            <p>Enter your credentials to access your account</p>
+                        </div>
+                        <div class="login-form">
+                            <form action="" method="post">
+                                <label for="email">Email</label>
+                                <input type="text" id="email" name="user-email"><br>
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="user-password"><br>
+                                <a href="">Forgot password?</a>
+                                <button type="submit">Sign in</button>
+                            </form>
+                        </div>
+                        <div>
+                            <p>Don't have an account?</p>
+                            <a href="">Sign up</a>
+                        </div>
+                    </div>
+                    <!-- TOGGLE  TO REGISTER FORM-->
+                    <div class="register-option">
+                        <!-- TODO HERE GOES FOR REGISTER FORM -->>
+                    </div>
+                </detail>
+            </article>
+            <article class="copyright-footer">
+                <p id="copyRight">2025 Weather App</p>
+            </article>
+        </section>
+
+        <!-- LOCATION MANAGER --->
+        <section class="location-manager" style="display: none;">
             <div class="search-bar">
                 <input class="glass" id="searchInput" type="text" placeholder="Add new location">
                 <button class="glass" id="searchBtn"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -22,29 +63,6 @@
             <div class="saved-cities"></div>
             <div class="glass" id="search-done-btn">Done</div>
         </section>
-        <!-- for weather information display
-            <article id="weatherResult">
-                <h4 id="city"></h4>
-                <p id="temp"></p>
-                <div class="condition">
-                    <p id="humidity"></p>
-                </div>
-            </article> 
-            -->
-
-        <!-- 
-            <article>
-                <div>
-                    <span></span>
-                    <span></span>
-                </div>
-                <detail class="daily-forecast">
-                    <div class="weather-card" style="display: block;"></div>
-                </detail>
-                <article class="five-days-forecast"></article>
-            </article>
-           -->
-
     </main>
     <script src="/js/script.js"></script>
 </body>
