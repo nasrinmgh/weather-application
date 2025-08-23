@@ -18,16 +18,74 @@ h1,h2, h3, h4, h5 {
     margin: unset;
 }
 
+
+.open-sans {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
 input {
     padding: unset;
     margin: unset;
+}
+
+/* enter page */
+
+.semi-transparent {
+    color: rgba(245, 241, 241, 0.9);
+}
+
+.enter-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.enter-page .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4rem;
+    margin-bottom: .5rem;
+    color: #ffff;
+}
+
+.intro h2 {
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.intro p {
+    font-size: 1rem;
+}
+
+.enter-page .enter-form {
+    backdrop-filter: 10px;
+
+}
+
+.login-option .form-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ffff;
+}
+
+.form-top p {
+    margin: 0;
+    font-size: 1rem;
 }
 
 /* Media queries */
 
 
 /* Search-Save page */
-main .saved-locations {
+main .location-manager {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,7 +103,7 @@ main .saved-locations {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.saved-locations .search-bar {
+.location-manager .search-bar {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -66,7 +124,6 @@ main .saved-locations {
 #searchInput::placeholder {
     color: rgba(245, 241, 241, 0.5);
     font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 
@@ -94,7 +151,7 @@ main .saved-locations {
     color: rgba(245, 241, 241, 0.7);
 }
 
-.saved-locations #search-done-btn {
+.location-manager #search-done-btn {
     padding: .4rem;
     padding-left: .8rem;
     width: 100%;
