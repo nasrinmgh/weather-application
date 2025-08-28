@@ -1,3 +1,16 @@
+// TO DISPLAY SIGN-UP FORM
+let signUp = document.getElementById('signUp');
+signUp.addEventListener('click', (event) => {
+  event.preventDefault();
+  let registerForm = document.querySelector('.register-option');
+  let loginForm = document.querySelector('.login-option');
+  registerForm.style.display = 'flex';
+  loginForm.style.display = 'none';
+
+})
+
+
+// FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
 async function getWeather() {
     const city = document.getElementById('searchInput').value.trim();
     if (!city) {
@@ -41,3 +54,8 @@ async function getWeather() {
 
 const searchBtn = document.getElementById('searchBtn');
 searchBtn.addEventListener('click', getWeather);
+
+let savedCities = [];
+
+function createCityCard(cityName, ) {
+}
