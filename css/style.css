@@ -40,6 +40,22 @@ input {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+.smooth-transition {
+    transition: all 300ms ease-in;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    z-index: 0;
+}
+
+.active {
+    transition: all 300ms ease-in;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 1;
+}
+
 /* enter page */
 
 .semi-transparent {
@@ -75,20 +91,24 @@ input {
     margin: 0;
 }
 
-.enter-page .form {
+.enter-page .form-container {
     max-width: 100%;
     width: 30%;
+    min-height: 30rem;
     margin: 1rem 0;
-}
-
-.form {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: height 0.3s ease;
 }
 
 .login-option, .register-option {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +116,7 @@ input {
     gap: .5rem;
 }
 
-.form-top {
+.page-top {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,7 +126,7 @@ input {
     gap: .3rem;
 }
 
-.form-top h4 {
+.page-top h4 {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 500;
@@ -114,7 +134,7 @@ input {
     color: #ffffff;
 }
 
-.form-top p {
+.page-top p {
     margin: 0;
     font-size: .9rem;
 }
@@ -126,6 +146,8 @@ input {
     align-items: center;
     align-self: flex-start;
     max-width: 100%;
+    max-height: auto;
+    padding: 1rem;
 }
 
 form {
@@ -181,7 +203,7 @@ form button {
     align-self: center; 
 }
 
-.register-request, .back-to-login {
+.register-request {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -189,14 +211,13 @@ form button {
     gap: .3rem;
 }
 
-.register-request, .back-to-login, p {
+.register-request p, .agreement-check p {
     font-size: .8rem;
 }
 
-.register-request, .back-to-login, a {
+.register-request a {
     font-size: .9rem;
 }
-
 
 .agreement-check {
     display: flex;
@@ -210,6 +231,11 @@ form button {
     height: .9rem;
 }
 
+/* TODO: CHANGE THE COLOR OF CHECKMARK
+#agreeCheck:checked {
+    color:#ffffff ;
+}
+*/
 .copyright-footer #copyRight {
     font-size: .8rem;
     font-weight: 400;

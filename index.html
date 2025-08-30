@@ -21,58 +21,54 @@
                 <p class="semi-transparent open-sans">Sign in to access your weather forecasts</p>
             </article>
 
-            <article class="form glass">
+            <article class="form-container glass">
                 <!-- LOGIN FORM -->
-                <div class="login-option active">
-                    <div class="form-top">
+                <div class="login-option smooth-transition active">
+                    <div class="page-top">
                         <h4 class="open-sans">Welcome!</h4>
                         <p class="semi-transparent open-sans">Enter your credentials to access your account</p>
                     </div>
                     <div class="login-form">
                         <form action="" method="post">
-                            <label for="email" class="semi-transparent">Email</label>
-                            <input class="glass" type="text" id="email" name="user-email">
-                            <label for="password" class="semi-transparent">Password</label>
-                            <input class="glass" type="password" id="password" name="user-password">
+                            <label for="logEmail" class="semi-transparent">Email</label>
+                            <input id="logEmail" class="glass" type="text" name="user-email">
+                            <label for="logPassword" class="semi-transparent">Password</label>
+                            <input id="logPassword" class="glass" type="password" name="user-password">
                             <a href="" class="semi-transparent">Forgot password?</a>
                             <button type="submit">Sign in</button>
                         </form>
                     </div>
                     <div class="register-request">
                         <p class="semi-transparent">Don't have an account?</p>
-                        <a href="" class="semi-transparent">Sign up</a>
+                        <a id="signUp" href="" class="semi-transparent">Sign up</a>
                     </div>
                 </div>
 
-                <!-- SIGN UP TO REGISTER FORM-->
-                <div class="register-option" style="display: none;">
-                    <div class="form-top">
+                <!-- REGISTER FORM -->
+                <div class="register-option smooth-transition">
+                    <div class="page-top">
                         <h4 class="open-sans">Create Account</h4>
                         <p class="semi-transparent open-sans">Sign up for a new weather account</p>
                     </div>
                     <div class="register-form">
                         <form action="" method="post">
-                            <label for="email" class="semi-transparent">Email</label>
-                            <input id="email" class="glass" type="text" name="user-email">
-                            <label for="password" class="semi-transparent">Password</label>
-                            <input id="password" class="glass" type="password" name="user-password">
-                            <label for="full-name" class="semi-transparent">Full Name</label>
+                            <label for="signEmail" class="semi-transparent">Email</label>
+                            <input id="signEmail" class="glass" type="text" name="user-email">
+                            <label for="signPassword" class="semi-transparent">Password</label>
+                            <input id="signPassword" class="glass" type="password" name="user-password">
+                            <label for="fullName" class="semi-transparent">Full Name</label>
                             <input id="fullName" class="glass" type="text" placeholder="John Doe">
-                            <label for="pass-confirm" class="semi-transparent">Confirm Password</label>
+                            <label for="passConfirm" class="semi-transparent">Confirm Password</label>
                             <input id="passConfirm" class="glass" type="password" placeholder="Re-enter your password">
                             <div class="agreement-check">
                                 <input id="agreeCheck" type="checkbox">
-                                <p class="semi-transparent">I agree to the <a href="">Terms of Services</a> and <a
-                                        href="">Privacy Policy</a></p>
+                                <p class="semi-transparent">I agree to the <a href="">Terms of Services</a> and
+                                    <a href="">Privacy Policy</a>
+                                </p>
                             </div>
                             <button>Create Account</button>
                         </form>
                     </div>
-                    <div class="back-to-login">
-                        <p class="semi-transparent">Already have an account?</p>
-                        <a href="" class="semi-transparent">Login</a>
-                    </div>
-                </div>
             </article>
 
             <article class="copyright-footer">

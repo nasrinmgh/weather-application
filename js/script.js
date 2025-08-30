@@ -1,13 +1,24 @@
+
+function updateFormContainerHeight() {
+    let formContainer = document.querySelector('.form-container');
+    let activeForm = formContainer.querySelector('.active');
+    let height = activeForm.scrollHeight;
+    formContainer.style.height = height + 'px';
+}
+
 // TO DISPLAY SIGN-UP FORM
 let signUp = document.getElementById('signUp');
+let loginForm = document.querySelector('.login-option');
 signUp.addEventListener('click', (event) => {
   event.preventDefault();
   let registerForm = document.querySelector('.register-option');
-  let loginForm = document.querySelector('.login-option');
-  registerForm.style.display = 'flex';
-  loginForm.style.display = 'none';
-
+  registerForm.classList.add('active');
+  loginForm.classList.remove('active');
+  updateFormContainerHeight();
 })
+
+loginForm.classList.add('active');
+updateFormContainerHeight();
 
 
 // FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
