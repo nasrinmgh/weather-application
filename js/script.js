@@ -1,25 +1,33 @@
-
-function updateFormContainerHeight() {
-    let formContainer = document.querySelector('.form-container');
-    let activeForm = formContainer.querySelector('.active');
-    let height = activeForm.scrollHeight;
-    formContainer.style.height = height + 'px';
-}
-
 // TO DISPLAY SIGN-UP FORM
-let signUp = document.getElementById('signUp');
-let loginForm = document.querySelector('.login-option');
+const signUp = document.getElementById('signUp');
+const loginForm = document.querySelector('.login-option');
+const registerForm = document.querySelector('.register-option');
+
 signUp.addEventListener('click', (event) => {
   event.preventDefault();
-  let registerForm = document.querySelector('.register-option');
   registerForm.classList.add('active');
   loginForm.classList.remove('active');
-  updateFormContainerHeight();
 })
 
-loginForm.classList.add('active');
-updateFormContainerHeight();
+// TO DISPLAY LOGIN FORM AFTER REGISTER
+function loginAfterRegister() {
+    const createAccountBtn = document.getElementById('createAccountBtn');
+    createAccountBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.classList.add('active');
+        registerForm.classList.remove('active');
+    })
+}
 
+// TO LOGIN THE USER
+function userEnter() {
+    const loginTrigger = document.getElementById('signIn');
+    loginTrigger.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const locationManagerPage = document.querySelector('.location-manager')
+        locationManagerPage.style.display = 'flex';
+    })
+}
 
 // FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
 async function getWeather() {
