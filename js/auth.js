@@ -21,6 +21,19 @@ async function credentialCheck() {
   const fullName = document.getElementById("fullName").value;
   const agreeCheck = document.getElementById("agreeCheck");
 
+  if (passConfirm !== pass) {
+    alert("Password confirm does not match");
+    return false;
+  }
+  if (!agreeCheck.checked) {
+    alert("Please agree with our terms");
+    return false;
+  }
+  if (!fullName.trim()) {
+    alert("Please enter your name");
+    return false;
+  }
+
   try {
     const userCredit = await createUserWithEmailAndPassword(auth, email, pass);
     return true;
@@ -29,14 +42,8 @@ async function credentialCheck() {
       alert("Use stronger password");
     } else if (error.code === "auth/email-already-in-use") {
       alert("This email is already in use");
-    } else if (passConfirm !== pass) {
-      alert("Password confirm doesn not match");
-    } else if (agreeCheck !== checked) {
-      alert("Please agree with our terms");
-    } else if (!fullName) {
-      alert("Please enter your name");
     } else {
-      alert("Sign up failed:" + error.message);
+      alert("Sign up failed: " + error.message);
     }
     return false;
   }
@@ -54,10 +61,11 @@ function showWelcome() {
 }
 
 // TO LOGIN
+const loginForm = document.querySelector(".login-option");
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const loginEmail = document.getElementById("logEmail");
-  const loginPass = document.getElementById("logPassword");
+  const loginEmail = document.getElementById("logEmail").value;
+  const loginPass = document.getElementById("logPassword").value;
   try {
     const loginUser = await signInWithEmailAndPassword(
       auth,

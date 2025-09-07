@@ -1,0 +1,60 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: sans-serif;
+  color: #ffff;
+}
+
+.home-page .main-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  font-family: sans-serif;
+  color: #fff;
+}
+
+.main-info #cityName,
+#temp,
+#currentCondition {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.main-info #cityName {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.main-info #temp {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.main-info #currentCondition {
+  font-size: 1.2rem;
+}
+
+.main-info .weather-in-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.alert-for-reload {
+  width: 100%;
+  height: auto;
+  text-wrap: wrap;
+  text-align: center;
+  border: 1px solid #e2dbdb;
+  border-radius: 20px;
+}

@@ -1,0 +1,64 @@
+/* Location Manager page */
+main .location-manager {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.location-manager .search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.search-bar input {
+  padding: 0.4rem;
+  padding-left: 0.8rem;
+  width: 100%;
+  max-width: 40%;
+  height: 1.1rem;
+}
+
+#searchInput::placeholder {
+  color: rgba(245, 241, 241, 0.5);
+  font-size: 14px;
+}
+
+#searchInput:focus {
+  outline: none;
+}
+
+/* TODO: fix the background color after autofill */
+#searchInput:-webkit-autofill {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.062);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar button {
+  width: 1.9rem;
+  height: 1.9rem;
+  text-align: center;
+}
+
+.search-bar button svg {
+  color: rgba(245, 241, 241, 0.7);
+}
+
+.location-manager #search-done-btn {
+  padding: 0.4rem;
+  padding-left: 0.8rem;
+  width: 100%;
+  max-width: 43%;
+  height: 1.1rem;
+}
