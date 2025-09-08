@@ -61,4 +61,6 @@ main .location-manager {
   width: 100%;
   max-width: 43%;
   height: 1.1rem;
+  text-align: center;
+  font-size: medium;
 }

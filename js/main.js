@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import { getCurrentLocation } from "./home.js";
 
 async function loadPage(page) {
   try {
@@ -21,6 +22,7 @@ async function loadPage(page) {
       }, 100);
     }
     if (page === "home") {
+      setTimeout(getCurrentLocation(), 2000);
       loadHomePageScripts();
     }
   } catch (error) {

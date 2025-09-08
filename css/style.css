@@ -67,6 +67,14 @@ input {
   display: flex;
 }
 
+.loading {
+  width: 3rem;
+  height: 3rem;
+  border: 2px inset rgba(245, 241, 241, 0.9);
+  background: transparent;
+  border-radius: 50%;
+}
+
 /* enter page */
 
 .semi-transparent {
