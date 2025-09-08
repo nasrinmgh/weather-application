@@ -64,6 +64,7 @@ input {
   transform: translateY(0);
   pointer-events: auto;
   z-index: 1;
+  display: flex;
 }
 
 /* enter page */

@@ -1,20 +1,10 @@
-import { auth } from "/APIs/firebase-config";
+import { auth } from "/APIs/firebase-config.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
-// TO SIGN UP
-const signUpForm = document.querySelector(".register-form form");
-signUpForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const successSignUp = await credentialCheck();
-  if (successSignUp) {
-    showWelcome();
-  }
-});
-
-async function credentialCheck() {
+export async function credentialCheck() {
   const email = document.getElementById("signEmail").value;
   const pass = document.getElementById("signPassword").value;
   const passConfirm = document.getElementById("passConfirm").value;
@@ -33,11 +23,17 @@ async function credentialCheck() {
     alert("Please enter your name");
     return false;
   }
+  if (pass.length < 6) {
+    alert("Password must be at least 6 characters");
+    return false;
+  }
 
   try {
-    const userCredit = await createUserWithEmailAndPassword(auth, email, pass);
+    await createUserWithEmailAndPassword(auth, email, pass);
     return true;
   } catch (error) {
+    console.error("Authentication error: error");
+
     if (error.code === "auth/weak-password") {
       alert("Use stronger password");
     } else if (error.code === "auth/email-already-in-use") {
@@ -49,7 +45,7 @@ async function credentialCheck() {
   }
 }
 
-function showWelcome() {
+export function showWelcome() {
   const msgBox = document.createElement("div");
   msgBox.innerHTML = "Signed up successfully!";
   const registerOption = document.querySelector(".register-option");
@@ -60,31 +56,39 @@ function showWelcome() {
   }, 1000);
 }
 
-// TO LOGIN
-const loginForm = document.querySelector(".login-option");
-loginForm.addEventListener("submit", async (e) => {
+// TO SIGN UP
+const signUpForm = document.querySelector(".register-form form");
+signUpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const loginEmail = document.getElementById("logEmail").value;
-  const loginPass = document.getElementById("logPassword").value;
+  const successSignUp = await credentialCheck();
+  if (successSignUp) {
+    showWelcome();
+  }
+});
+
+// TO LOGIN
+export async function loginUser(email, password) {
   try {
-    const loginUser = await signInWithEmailAndPassword(
+    const userCredential = await signInWithEmailAndPassword(
       auth,
-      loginEmail,
-      loginPass
+      email,
+      password
     );
-    if (loginUser) {
-      showWelcome();
-    }
+    return userCredential;
   } catch (error) {
+    console.error("Login error:", error);
+
     if (error.code === "auth/invalid-email") {
-      alert("Enter a vlid email");
+      alert("Enter a valid email");
     } else if (error.code === "auth/user-not-found") {
       alert("No user exists with this email");
     } else if (error.code === "auth/wrong-password") {
       alert("Incorrect password");
+    } else if (error.code === "auth/invalid-credential") {
+      alert("Invalid email or password");
     } else {
-      alert("Login failed:" + error.message);
+      alert("Login failed: " + error.message);
     }
     return false;
   }
-});
+}
