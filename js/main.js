@@ -4,7 +4,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-import { getCurrentLocation } from "./home.js";
 
 async function loadPage(page) {
   try {
@@ -22,7 +21,6 @@ async function loadPage(page) {
       }, 100);
     }
     if (page === "home") {
-      setTimeout(getCurrentLocation(), 2000);
       loadHomePageScripts();
     }
   } catch (error) {
@@ -31,7 +29,6 @@ async function loadPage(page) {
       <div style="color: white; text-align: center; margin-top: 2rem;">
         <h2>Error loading page</h2>
         <p>Could not load ${page}.html</p>
-        <p>Error: ${error.message}</p>
       </div>
     `;
   }
@@ -178,6 +175,13 @@ function showWelcome() {
   }, 2000);
 }
 
-function loadHomePageScripts() {}
+function loadHomePageScripts() {
+  const addLocationBtn = document.querySelector(".footer-btn");
+  addLocationBtn.addEventListener("click", () => {
+    const locationBox = document.querySelector(".location-manager");
+    locationBox.classList.remove("slide-up-hidden");
+    locationBox.classList.add("slide-up");
+  });
+}
 
 loadPage("forms");
