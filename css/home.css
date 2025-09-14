@@ -9,6 +9,8 @@
   gap: 1rem;
   font-family: sans-serif;
   max-width: 100%;
+  height: 100%;
+  margin-top: 2rem;
 }
 
 .home-page .header {
@@ -17,7 +19,6 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin: 2rem;
   font-family: sans-serif;
   color: #fff;
   max-width: 100%;
@@ -102,7 +103,6 @@
   height: 3rem;
   padding: 0.5rem;
   margin: 0.5rem;
-  margin-bottom: 1rem;
   align-self: center;
   font-size: small;
   color: #ffffff;
@@ -123,10 +123,45 @@
 main .location-manager {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   gap: 1rem;
-  width: 22rem;
+  width: 20.5rem;
+  background-color: rgb(68, 66, 141);
+  border: transparent;
+  border-radius: 12px 12px 0 0;
+}
+
+.location-manager .slide-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.slide-header h3 {
+  font-size: 0.9rem;
+  color: rgba(245, 241, 241, 0.9);
+}
+
+.slide-header button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: transparent;
+  border: transparent;
+}
+
+.slide-header button svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: #d9d5e6c3;
+  padding: 0;
 }
 
 .location-manager .search-bar {
@@ -135,7 +170,7 @@ main .location-manager {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  width: 100%;
+  width: 90%;
   margin-top: 2rem;
 }
 
@@ -178,26 +213,27 @@ main .location-manager {
 
 .location-manager #search-done-btn {
   padding: 0.4rem 0;
-  width: 22rem;
+  width: 90%;
   height: 1.1rem;
   text-align: center;
   font-size: medium;
 }
 
 .slide-up {
-  height: auto;
-  transition: height 0.5s ease-out;
-  overflow: hidden;
-  opacity: 1;
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in;
+  height: 60vh;
+  width: 100%;
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  overflow-y: auto;
 }
 
-.slide-up-hidden {
-  height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  transition: height 0.5s ease-in;
-  pointer-events: none;
-  opacity: 0;
+.slide-up.show {
+  transform: translateY(0);
+}
+
+body.noscroll {
+  overflow-y: hidden;
 }

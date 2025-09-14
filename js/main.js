@@ -179,8 +179,8 @@ function loadHomePageScripts() {
   const addLocationBtn = document.querySelector(".footer-btn");
   addLocationBtn.addEventListener("click", () => {
     const locationBox = document.querySelector(".location-manager");
-    locationBox.classList.remove("slide-up-hidden");
-    locationBox.classList.add("slide-up");
+    locationBox.classList.add("show");
+    document.body.classList.add("noscroll");
   });
 }
 
