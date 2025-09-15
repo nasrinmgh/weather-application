@@ -1,9 +1,11 @@
-export function addLocation() {
-  const addLocationBtn = document.querySelector(".footer-btn");
-  addLocationBtn.addEventListener("click"),
-    () => {
-      const locationBox = document.querySelector(".location-manager");
-      locationBox.classList.remove("slide-up-hidden");
-      locationBox.classList.add("slide-up");
-    };
+export function locationManagerInitialize() {
+  const crossBtn = document.getElementById("crossBtn");
+  crossBtn.addEventListener("click", () => {
+    document.querySelector(".location-manager").classList.remove("show");
+  });
+
+  const doneBtn = document.getElementById("search-done-btn");
+  doneBtn.addEventListener("click", () => {
+    localStorage.getItem;
+  });
 }

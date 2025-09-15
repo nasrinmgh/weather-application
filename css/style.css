@@ -12,6 +12,7 @@ body {
 }
 
 main {
+  position: relative;
   margin: 2rem 0;
   width: 100%;
   max-width: 25rem;
@@ -19,6 +20,7 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100vh;
 }
 
 html {
