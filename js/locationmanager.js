@@ -1,55 +1,48 @@
 // fetch city
-async function getLocation() {
+export async function getLocation() {
   const city = document.getElementById("searchInput").value.trim();
+  const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
   if (!city) {
     alert("Please enter a city name");
     return;
   }
   try {
-    const GEO_URL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`;
+    const GEO_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
     const GEO_response = await fetch(GEO_URL);
     const GEO_data = await GEO_response.json();
-    if (!GEO_data.results || GEO_data.results.length === 0) {
+    if (!GEO_data || GEO_data.length === 0) {
       alert("City not found");
       return;
     }
 
-    let cityNAME = GEO_data.results[0].name;
-    let latitude = GEO_data.results[0].latitude;
-    let longitude = GEO_data.results[0].longitude;
-    addCityToLocalStorage();
+    let cityNAME = GEO_data[0].name;
+    addCityToLocalStorage(cityNAME);
 
-    console.log(`City:${cityNAME}
-      Latitude: ${latitude}
-      Longitude: ${longitude}`);
+    console.log(`City:${cityNAME}`);
   } catch (error) {
     console.error("Failed to fetch city:", error);
     alert("Can not find the city, please try again");
   }
 }
 
-const searchBtn = document.getElementById("searchBtn");
-searchBtn.addEventListener("click", () => {
-  getLocation();
-  renderCities();
-});
-
 function addCityToLocalStorage(cityName) {
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
   savedCities.push(cityName);
   localStorage.setItem("savedCities", JSON.stringify(savedCities));
+  console.log(`${savedCities}`);
 }
 
 function renderCities() {
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
-  if (savedCities.length === 0) {
-    return;
-  }
-  savedCities.map((c) => {
-    const cityCard = document.getElementById(".city-card");
-    cityCard.style.display = "flex";
-    const cityCardName = document.getElementById("cityCardName");
+  const cardTemplate = document.querySelector(".city-card");
+  const cardsContainer = document.querySelector(".saved-cities");
+  cardsContainer.innerHTML = "";
+  savedCities.forEach((c) => {
+    const cardCopy = cardTemplate.cloneNode(true);
+    cardCopy.style.display = "flex";
+    const cityCardName = cardCopy.querySelector("#cityCardName");
     cityCardName.textContent = c;
+    cardsContainer.appendChild(cardCopy);
   });
 }
 
@@ -62,7 +55,7 @@ doneBtn.addEventListener("click", () => {
 async function getWeather() {
   try {
     //call forecast API
-    const WEATHER_API = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m,relative_humidity_2m,precipitation,cloud_cover,visibility,temperature_80m&current=temperature_2m,precipitation,cloud_cover,relative_humidity_2m`;
+    const WEATHER_API = `http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}`;
     const WEATHER_response = await fetch(WEATHER_API);
     const WEATHER_data = await WEATHER_response.json();
 

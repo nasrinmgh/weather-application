@@ -3,9 +3,8 @@ export function locationManagerInitialize() {
   crossBtn.addEventListener("click", () => {
     document.querySelector(".location-manager").classList.remove("show");
   });
-
-  const doneBtn = document.getElementById("search-done-btn");
-  doneBtn.addEventListener("click", () => {
-    localStorage.getItem;
-  });
 }
+
+import { getLocation } from "./locationmanager";
+const searchBtn = document.getElementById("searchBtn");
+searchBtn.addEventListener("click", getLocation);
