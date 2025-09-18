@@ -1,5 +1,22 @@
+export function locationManagerInitialize() {
+  const crossBtn = document.getElementById("crossBtn");
+  if (crossBtn) {
+    crossBtn.addEventListener("click", function () {
+      document.querySelector(".location-manager").classList.remove("show");
+    });
+  }
+  const searchBtn = document.getElementById("searchBtn");
+  if (searchBtn) {
+    searchBtn.addEventListener("click", getLocation);
+  }
+  const doneBtn = document.getElementById("search-done-btn");
+  if (doneBtn) {
+    doneBtn.addEventListener("click", () => addCityToLocalStorage(cityName));
+  }
+}
+
 // fetch city
-export async function getLocation() {
+async function getLocation() {
   const city = document.getElementById("searchInput").value.trim();
   const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
   if (!city) {
@@ -15,10 +32,11 @@ export async function getLocation() {
       return;
     }
 
-    let cityNAME = GEO_data[0].name;
-    addCityToLocalStorage(cityNAME);
+    let cityName = GEO_data[0].name;
+    addCityToLocalStorage(cityName);
+    renderCities();
 
-    console.log(`City:${cityNAME}`);
+    console.log(`City:${cityName}`);
   } catch (error) {
     console.error("Failed to fetch city:", error);
     alert("Can not find the city, please try again");
@@ -32,7 +50,7 @@ function addCityToLocalStorage(cityName) {
   console.log(`${savedCities}`);
 }
 
-function renderCities() {
+export function renderCities() {
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
   const cardTemplate = document.querySelector(".city-card");
   const cardsContainer = document.querySelector(".saved-cities");
@@ -42,14 +60,11 @@ function renderCities() {
     cardCopy.style.display = "flex";
     const cityCardName = cardCopy.querySelector("#cityCardName");
     cityCardName.textContent = c;
-    cardsContainer.appendChild(cardCopy);
+    cardsContainer.prepend(cardCopy);
   });
+  const city = document.getElementById("searchInput");
+  city.value = "";
 }
-
-const doneBtn = document.getElementById("search-done-btn");
-doneBtn.addEventListener("click", () => {
-  renderCities();
-});
 
 // FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
 async function getWeather() {
@@ -72,5 +87,3 @@ async function getWeather() {
     alert("Failed to fetch weather data");
   }
 }
-
-searchBtn.addEventListener("click", getWeather);
