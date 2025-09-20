@@ -13,6 +13,23 @@ export function locationManagerInitialize() {
   if (doneBtn) {
     doneBtn.addEventListener("click", () => addCityToLocalStorage(cityName));
   }
+  const deleteCross = document.querySelector(".delete-city");
+  if (deleteCross) {
+    const deleteIcons = document.querySelectorAll(".delete-city");
+    deleteIcons.forEach((deleteIcon) => {
+      deleteIcon.addEventListener("click", deleteCityCard);
+    });
+  }
+}
+
+function deleteCityCard(event) {
+  const clickedBtn = event.target;
+  const parentCard = clickedBtn.closest(".city-card");
+  const deletedCity = parentCard.querySelector("#cityCardName").textContent;
+  let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+  savedCities = savedCities.filter((city) => city !== deletedCity);
+  localStorage.setItem("savedCities", JSON.stringify(savedCities));
+  parentCard.remove();
 }
 
 // fetch city
