@@ -20,16 +20,35 @@ export function locationManagerInitialize() {
       deleteIcon.addEventListener("click", deleteCityCard);
     });
   }
+  const chooseCity = document.querySelector(".choose-city");
+  if (chooseCity) {
+    const chooseIcons = document.querySelectorAll(".choose-city");
+    chooseIcons.forEach((chooseIcon) => {
+      chooseIcon.addEventListener("click", (event) => {
+        const defaultDiv = document.querySelector(".default-sign");
+        if (defaultDiv) return;
+        chooseDefaultCity(event);
+      });
+    });
+  }
 }
 
 function deleteCityCard(event) {
   const clickedBtn = event.target;
   const parentCard = clickedBtn.closest(".city-card");
-  const deletedCity = parentCard.querySelector("#cityCardName").textContent;
+  const deletedCity = parentCard.querySelector(".city-card-name").textContent;
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
   savedCities = savedCities.filter((city) => city !== deletedCity);
   localStorage.setItem("savedCities", JSON.stringify(savedCities));
   parentCard.remove();
+}
+
+function chooseDefaultCity(event) {
+  const clicked = event.target;
+  const defaultSign = document.createElement("div");
+  defaultSign.classList.add("default-sign");
+  defaultSign.textContent = "default";
+  clicked.replaceWith(defaultSign);
 }
 
 // fetch city
@@ -75,7 +94,7 @@ export function renderCities() {
   savedCities.forEach((c) => {
     const cardCopy = cardTemplate.cloneNode(true);
     cardCopy.style.display = "flex";
-    const cityCardName = cardCopy.querySelector("#cityCardName");
+    const cityCardName = cardCopy.querySelector(".city-card-name");
     cityCardName.textContent = c;
     cardsContainer.prepend(cardCopy);
   });
