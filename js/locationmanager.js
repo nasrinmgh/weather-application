@@ -19,26 +19,6 @@ export function locationManagerInitialize() {
       addCityToLocalStorage(city);
     });
   }
-  const deleteCross = document.querySelector(".delete-city");
-  if (deleteCross) {
-    const deleteIcons = document.querySelectorAll(".delete-city");
-    deleteIcons.forEach((deleteIcon) => {
-      deleteIcon.addEventListener("click", deleteCityCard);
-    });
-  }
-  const chooseCity = document.querySelector(".choose-city");
-  if (chooseCity) {
-    const chooseIcons = document.querySelectorAll(".choose-city");
-    chooseIcons.forEach((chooseIcon) => {
-      chooseIcon.addEventListener("click", (event) => {
-        const defaultDiv = document.querySelector(".default-sign");
-        if (defaultDiv) {
-          return;
-        }
-        chooseDefaultCity(event);
-      });
-    });
-  }
 }
 
 function deleteCityCard(event) {
@@ -86,8 +66,8 @@ async function getLocation() {
     }
 
     let cityName = GEO_data[0].name;
-    addCityToLocalStorage(cityName);
     createCityCard(cityName);
+    addCityToLocalStorage(cityName);
     // renderCities();
 
     console.log(`City:${cityName}`);
@@ -123,10 +103,18 @@ function createCityCard(cityName) {
   </div>
   `;
 
-  const cityTitle = document.querySelector(".city-card-name");
-  cityTitle.textContent = cityName;
   const cardsContainer = document.querySelector(".saved-cities");
+  const cityTitle = card.querySelector(".city-card-name");
+  cityTitle.textContent = cityName;
   cardsContainer.prepend(card);
+
+  document.querySelector(".saved-cities").addEventListener("click", (e) => {
+    if (e.target.closest(".delete-city")) {
+      deleteCityCard(e);
+    } else if (e.target.closest(".choose-city")) {
+      chooseDefaultCity(e);
+    }
+  });
 }
 
 function addCityToLocalStorage(cityName) {
