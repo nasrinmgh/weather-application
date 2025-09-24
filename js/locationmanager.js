@@ -28,6 +28,7 @@ function deleteCityCard(event) {
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
   savedCities = savedCities.filter((city) => city !== deletedCity);
   localStorage.setItem("savedCities", JSON.stringify(savedCities));
+  console.log(savedCities);
   parentCard.remove();
 }
 
@@ -45,31 +46,41 @@ function chooseDefaultCity(event) {
 
 // fetch city
 async function getLocation() {
-  const city = document.getElementById("searchInput").value.trim();
+  let city = document.getElementById("searchInput").value.trim();
   const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
   if (!city) {
-    const city = document.getElementById("searchInput");
-    city.value = "";
+    let input = document.getElementById("searchInput");
+    input.value = "";
     alert("Please enter a city name");
     return;
   }
 
+  let savedCities = JSON.parse(localStorage.getItem("savedCities"));
+  if (
+    savedCities.some(
+      (c) => typeof c == "string" && c.toLowerCase() === city.toLowerCase
+    )
+  ) {
+    alert("You already saved this city");
+    return;
+  }
   try {
     const GEO_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
     const GEO_response = await fetch(GEO_URL);
     const GEO_data = await GEO_response.json();
     if (!GEO_data || GEO_data.length === 0) {
       alert("City not found");
-      const city = document.getElementById("searchInput");
-      city.value = "";
+      let input = document.getElementById("searchInput");
+      input.value = "";
       return;
     }
 
     let cityName = GEO_data[0].name;
+    if (city === cityName) return;
+
     createCityCard(cityName);
     addCityToLocalStorage(cityName);
     // renderCities();
-
     console.log(`City:${cityName}`);
   } catch (error) {
     console.error("Failed to fetch city:", error);
@@ -107,7 +118,8 @@ function createCityCard(cityName) {
   const cityTitle = card.querySelector(".city-card-name");
   cityTitle.textContent = cityName;
   cardsContainer.prepend(card);
-
+  const cityInput = document.getElementById("searchInput");
+  cityInput.value = "";
   document.querySelector(".saved-cities").addEventListener("click", (e) => {
     if (e.target.closest(".delete-city")) {
       deleteCityCard(e);
@@ -121,7 +133,6 @@ function addCityToLocalStorage(cityName) {
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
   savedCities.push(cityName);
   localStorage.setItem("savedCities", JSON.stringify(savedCities));
-  console.log(`${savedCities}`);
 }
 
 /*export function renderCities() {
