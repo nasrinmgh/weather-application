@@ -5,10 +5,20 @@ export function locationManagerInitialize() {
       document.querySelector(".location-manager").classList.remove("show");
     });
   }
+
   const searchBtn = document.getElementById("searchBtn");
   if (searchBtn) {
     searchBtn.addEventListener("click", getLocation);
   }
+
+  document.querySelector(".saved-cities").addEventListener("click", (e) => {
+    if (e.target.closest(".delete-city")) {
+      deleteCityCard(e);
+    } else if (e.target.closest(".choose-city")) {
+      chooseDefaultCity(e);
+    }
+  });
+
   const doneBtn = document.getElementById("search-done-btn");
   if (doneBtn) {
     doneBtn.addEventListener("click", () => {
@@ -17,8 +27,10 @@ export function locationManagerInitialize() {
         return;
       }
       addCityToLocalStorage(city);
+      renderCities();
     });
   }
+  renderCities();
 }
 
 function deleteCityCard(event) {
@@ -33,6 +45,10 @@ function deleteCityCard(event) {
 }
 
 function chooseDefaultCity(event) {
+  let defaultSaved = localStorage.getItem("defaultCity");
+  if (defaultSaved) {
+    return;
+  }
   const clicked = event.target;
   const defaultSign = document.createElement("div");
   defaultSign.classList.add("default-sign");
@@ -48,8 +64,9 @@ function chooseDefaultCity(event) {
 async function getLocation() {
   let city = document.getElementById("searchInput").value.trim();
   const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
+  let input = document.getElementById("searchInput");
+
   if (!city) {
-    let input = document.getElementById("searchInput");
     input.value = "";
     alert("Please enter a city name");
     return;
@@ -58,30 +75,29 @@ async function getLocation() {
   let savedCities = JSON.parse(localStorage.getItem("savedCities"));
   if (
     savedCities.some(
-      (c) => typeof c == "string" && c.toLowerCase() === city.toLowerCase
+      (c) => typeof c == "string" && c.toLowerCase() === city.toLowerCase()
     )
   ) {
     alert("You already saved this city");
+    input.value = "";
     return;
   }
+
   try {
     const GEO_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
     const GEO_response = await fetch(GEO_URL);
     const GEO_data = await GEO_response.json();
     if (!GEO_data || GEO_data.length === 0) {
       alert("City not found");
-      let input = document.getElementById("searchInput");
       input.value = "";
       return;
     }
 
     let cityName = GEO_data[0].name;
-    if (city === cityName) return;
-
     createCityCard(cityName);
     addCityToLocalStorage(cityName);
-    // renderCities();
     console.log(`City:${cityName}`);
+    console.log(savedCities);
   } catch (error) {
     console.error("Failed to fetch city:", error);
     alert("Can not find the city, please try again");
@@ -92,6 +108,12 @@ function createCityCard(cityName) {
   const card = document.createElement("div");
   card.classList.add("city-card", "glass");
 
+  if (!cityName) {
+    return;
+  }
+  if (typeof cityName !== "string") {
+    return;
+  }
   card.innerHTML = `
   <div>
       <div class="left-side">
@@ -120,36 +142,27 @@ function createCityCard(cityName) {
   cardsContainer.prepend(card);
   const cityInput = document.getElementById("searchInput");
   cityInput.value = "";
-  document.querySelector(".saved-cities").addEventListener("click", (e) => {
-    if (e.target.closest(".delete-city")) {
-      deleteCityCard(e);
-    } else if (e.target.closest(".choose-city")) {
-      chooseDefaultCity(e);
-    }
-  });
 }
 
 function addCityToLocalStorage(cityName) {
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+  cityName = cityName.trim();
+  if (!cityName) return;
+
   savedCities.push(cityName);
   localStorage.setItem("savedCities", JSON.stringify(savedCities));
 }
 
-/*export function renderCities() {
+export function renderCities() {
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
-  const cardTemplate = document.querySelector(".city-card");
   const cardsContainer = document.querySelector(".saved-cities");
   cardsContainer.innerHTML = "";
-  savedCities.forEach((c) => {
-    const cardCopy = cardTemplate.cloneNode(true);
-    cardCopy.style.display = "flex";
-    const cityCardName = cardCopy.querySelector(".city-card-name");
-    cityCardName.textContent = c;
-    cardsContainer.prepend(cardCopy);
+  savedCities.forEach((cityName) => {
+    createCityCard(cityName);
   });
-  const city = document.getElementById("searchInput");
-  city.value = "";
-}*/
+  let input = document.getElementById("searchInput");
+  input.value = "";
+}
 
 // FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
 async function getWeather() {
