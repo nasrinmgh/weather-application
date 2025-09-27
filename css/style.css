@@ -13,7 +13,7 @@ body {
 
 main {
   position: relative;
-  margin: 2rem 0;
+  margin: 1rem 0;
   width: 100%;
   max-width: 25rem;
   display: flex;
@@ -92,13 +92,14 @@ input {
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: auto;
 }
 
 .enter-page .intro {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: #ffff;
   gap: 0.3rem;
@@ -119,7 +120,7 @@ input {
 .enter-page .form-container {
   width: 100%;
   min-height: 25rem;
-  max-height: auto;
+  height: auto;
   margin: 1rem;
   position: relative;
   display: flex;
@@ -136,7 +137,6 @@ input {
   left: 0;
   width: 100%;
   height: auto;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -178,12 +178,18 @@ input {
   justify-content: center;
   align-items: center;
   max-width: 100%;
-  max-height: auto;
+  height: auto;
   padding: 1rem;
 }
 
+.register-option .page-top {
+  margin-top: 0;
+  margin-bottom: 1.7rem;
+}
+
 .register-form form {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  max-height: 14rem;
 }
 
 form {
@@ -267,15 +273,37 @@ form button {
   height: 0.9rem;
 }
 
+.register-option .back-to-login {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+}
+
+.back-to-login a {
+  text-decoration: none;
+  transition: all 500ms ease;
+}
+
+.back-to-login a:hover {
+  text-decoration: underline;
+  transition: all 500ms ease;
+}
+
 /* TODO: CHANGE THE COLOR OF CHECKMARK
 #agreeCheck:checked {
     color:#ffffff ;
 }
 */
 .copyright-footer #copyRight {
-  font-size: 0.8rem;
+  position: relative;
+  top: 2rem;
+  font-size: 0.7rem;
   font-weight: 400;
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 }
 
 /* Media queries */

@@ -1,9 +1,11 @@
 import { showLoginForm, enabelSignUpForm } from "./forms.js";
-import { auth } from "/APIs/firebase-config.js"; // Import auth
+import { auth } from "/APIs/firebase-config.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import { locationManagerInitialize } from "./locationmanager.js";
+//import { renderCities } from "./locationmanager.js";
 
 async function loadPage(page) {
   try {
@@ -40,12 +42,20 @@ function setupFormsEventListeners() {
   const createAccountBtn = document.getElementById("createAccountBtn");
   const registerForm = document.querySelector(".register-form form");
   const loginForm = document.querySelector(".login-form form");
+  const backToSignIn = document.getElementById("backToSignIn");
 
   // sign up link- switch to register form
   if (signUpBtn) {
     signUpBtn.addEventListener("click", (e) => {
       e.preventDefault();
       enabelSignUpForm();
+    });
+  }
+
+  if (backToSignIn) {
+    backToSignIn.addEventListener("click", (e) => {
+      e.preventDefault();
+      showLoginForm();
     });
   }
 
@@ -181,6 +191,15 @@ function loadHomePageScripts() {
     const locationBox = document.querySelector(".location-manager");
     locationBox.classList.add("show");
     document.body.classList.add("noscroll");
+    if (locationBox) {
+      //renderCities();
+      document
+        .getElementById("search-done-btn")
+        .addEventListener("click", () => {
+          locationBox.classList.remove("show");
+        });
+    }
+    locationManagerInitialize();
   });
 }
 

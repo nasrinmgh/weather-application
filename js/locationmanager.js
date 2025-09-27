@@ -31,6 +31,7 @@ export function locationManagerInitialize() {
     });
   }
   renderCities();
+  loadDefaultCity();
 }
 
 function deleteCityCard(event) {
@@ -45,19 +46,39 @@ function deleteCityCard(event) {
 }
 
 function chooseDefaultCity(event) {
-  let defaultSaved = localStorage.getItem("defaultCity");
-  if (defaultSaved) {
-    return;
-  }
   const clicked = event.target;
+  const parent = clicked.closest(".city-card");
+  const leftSide = parent.querySelector(".left-side");
+  document.querySelectorAll(".default-sign").forEach((sign) => sign.remove());
+  document
+    .querySelectorAll(".choose-city")
+    .forEach((icon) => (icon.style.display = "block"));
+  clicked.style.display = "none";
   const defaultSign = document.createElement("div");
   defaultSign.classList.add("default-sign");
   defaultSign.textContent = "default";
-  const parent = clicked.closest(".city-card");
-  const defaultCity = parent.querySelector(".left-side .city-card-name");
-  const defaultCityName = defaultCity.textContent;
-  localStorage.setItem("defaultCity", defaultCityName);
-  clicked.replaceWith(defaultSign);
+  leftSide.append(defaultSign);
+  const defaultCity = leftSide.querySelector(".city-card-name").textContent;
+  localStorage.setItem("defaultcity", defaultCity);
+  console.log(localStorage.getItem("defaultCity"));
+}
+
+function loadDefaultCity() {
+  const defaultCityName = localStorage.getItem("defaultCity");
+  if (!defaultCityName) {
+    return;
+  }
+
+  document.querySelectorAll(".city-card").forEach((city) => {
+    const name = city.querySelector(".city-card-name").textContent;
+    if (name == defaultCityName) {
+      const defaultDiv = document
+        .createElement("div")
+        .classList.add("default-sign");
+      defaultDiv.textContent = "default";
+      city.querySelector("city-card-name").prepend(defaultDiv);
+    }
+  });
 }
 
 // fetch city
@@ -114,6 +135,7 @@ function createCityCard(cityName) {
   if (typeof cityName !== "string") {
     return;
   }
+
   card.innerHTML = `
   <div>
       <div class="left-side">
