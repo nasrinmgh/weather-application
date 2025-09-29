@@ -8,7 +8,15 @@ export function locationManagerInitialize() {
 
   const searchBtn = document.getElementById("searchBtn");
   if (searchBtn) {
-    searchBtn.addEventListener("click", getLocation);
+    searchBtn.addEventListener("click", () => {
+      const city = document.getElementById("searchInput").value.trim();
+      if (!city) {
+        return;
+      }
+      getLocation(city);
+      // addCityToLocalStorage(city);
+      renderCities();
+    });
   }
 
   document.querySelector(".saved-cities").addEventListener("click", (e) => {
@@ -21,8 +29,9 @@ export function locationManagerInitialize() {
 
   const doneBtn = document.getElementById("search-done-btn");
   if (doneBtn) {
-    doneBtn.addEventListener("click", () => {
-      const city = document.getElementById("searchInput").value.trim();
+    doneBtn.addEventListener("click", () => {});
+  }
+  /* const city = document.getElementById("searchInput").value.trim();
       if (!city) {
         return;
       }
@@ -30,6 +39,7 @@ export function locationManagerInitialize() {
       renderCities();
     });
   }
+ */
   renderCities();
   loadDefaultCity();
 }
@@ -59,8 +69,9 @@ function chooseDefaultCity(event) {
   defaultSign.textContent = "default";
   leftSide.append(defaultSign);
   const defaultCity = leftSide.querySelector(".city-card-name").textContent;
-  localStorage.setItem("defaultcity", defaultCity);
-  console.log(localStorage.getItem("defaultCity"));
+  localStorage.setItem("defaultCity", defaultCity);
+  const defaults = localStorage.getItem("defaultCity");
+  console.log(defaults);
 }
 
 function loadDefaultCity() {
@@ -115,10 +126,13 @@ async function getLocation() {
     }
 
     let cityName = GEO_data[0].name;
-    createCityCard(cityName);
-    addCityToLocalStorage(cityName);
-    console.log(`City:${cityName}`);
-    console.log(savedCities);
+
+    if (cityName.toLowerCase() == city.toLowerCase()) {
+      createCityCard(cityName);
+      addCityToLocalStorage(cityName);
+      console.log(`City:${cityName}`);
+      console.log(savedCities);
+    }
   } catch (error) {
     console.error("Failed to fetch city:", error);
     alert("Can not find the city, please try again");

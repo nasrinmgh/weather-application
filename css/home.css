@@ -224,6 +224,7 @@ main .location-manager {
   font-size: medium;
   margin-bottom: 1rem;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .slide-up {
@@ -234,11 +235,11 @@ main .location-manager {
   z-index: 999;
   position: fixed;
   bottom: 0;
-  overflow-y: auto;
 }
 
 .slide-up.show {
   transform: translateY(0);
+  transition: transform 0.5s ease-out;
 }
 
 body.noscroll {
@@ -251,12 +252,33 @@ body.noscroll {
   gap: 0.5rem;
   justify-content: flex-start;
   align-items: center;
+  flex: 1;
+  overflow-y: auto;
   width: 100%;
-  height: auto;
+  height: 30vh;
   position: fixed;
   top: 7rem;
+  overflow-y: auto;
 }
 
+.saved-cities::-webkit-scrollbar {
+  /* width height */
+  width: 12px;
+}
+
+.saved-cities::-webkit-scrollbar-thumb {
+  /* bg color, border radius, box shadow*/
+  background-color: #2a1b558f;
+  border-radius: 10px;
+}
+/*
+.saved-cities::-webkit-scrollbar-track {
+}
+.saved-cities::-webkit-scrollbar-corner {
+}
+.saved-cities::-webkit-scrollbar-button {
+}
+*/
 .city-card {
   display: flex;
   flex-direction: row;
@@ -265,10 +287,10 @@ body.noscroll {
   border: transparent;
   border-radius: 4px;
   width: 90%;
-  height: 2rem;
+  min-height: 2.5rem;
 }
 
-.city-card .lefi-side {
+.city-card .left-side {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -296,4 +318,21 @@ body.noscroll {
   font-size: 0.9rem;
   font-family: "Courier New", Courier, monospace;
   width: 100%;
+}
+
+.city-card .default-sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 1rem;
+  border: transparent;
+  border-radius: 14px;
+  color: #ffffffc5;
+  background-color: #362b568f;
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+  text-align: center;
+  padding: 0.1rem 0.3rem;
+  transition: all 0.5s ease;
 }
