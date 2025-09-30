@@ -5,7 +5,6 @@ import {
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 import { locationManagerInitialize } from "./locationmanager.js";
-//import { renderCities } from "./locationmanager.js";
 
 async function loadPage(page) {
   try {
@@ -24,6 +23,9 @@ async function loadPage(page) {
     }
     if (page === "home") {
       loadHomePageScripts();
+    }
+    if (page === "weather-forecast") {
+      loadWeatherForecast();
     }
   } catch (error) {
     console.error("Error loading page:", error);
@@ -185,6 +187,13 @@ function showWelcome() {
   }, 2000);
 }
 
+function loadWeatherForecast() {
+  const weatherPage = document.querySelector(".weather-page");
+  const homePage = document.querySelector(".home-page");
+  weatherPage.classList.add("page-animate");
+  homePage.style.display = "none";
+}
+
 function loadHomePageScripts() {
   const addLocationBtn = document.querySelector(".footer-btn");
   addLocationBtn.addEventListener("click", () => {
@@ -192,11 +201,11 @@ function loadHomePageScripts() {
     locationBox.classList.add("show");
     document.body.classList.add("noscroll");
     if (locationBox) {
-      //renderCities();
       document
         .getElementById("search-done-btn")
         .addEventListener("click", () => {
           locationBox.classList.remove("show");
+          loadWeatherForecast();
         });
     }
     locationManagerInitialize();

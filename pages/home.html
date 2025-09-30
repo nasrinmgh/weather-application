@@ -6,10 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/weather-page.css">
     <title>Home</title>
 </head>
 
 <body>
+    <!-- Home Page -->
     <section class="home-page">
         <article class="header">
             <div id="appName">Welcome to Weather App</div>
@@ -86,6 +88,24 @@
         </div>
         <div class="saved-cities"></div>
         <button class="glass semi-transparent" id="search-done-btn">Go to Weather</button>
+    </section>
+    <!-- Weather Page -->
+    <section class="weather-page">
+        <article class="weather-header">
+            <div id="cityDisplay"></div>
+            <div id="degree"></div>
+            <div id="airCondition"></div>
+            <div class="details">
+                <div id="humidity"></div>
+                <div id="lightness"></div>
+            </div>
+        </article>
+        <article>
+            <label class="toggle-switch">
+                <input type="checkbox" class="toggle-input">
+                <span class="slider"></span>
+            </label>
+        </article>
     </section>
 
     <script src="/js/main.js"></script>

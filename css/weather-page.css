@@ -1,0 +1,39 @@
+.weather-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: auto;
+}
+
+.page-animate {
+  position: relative;
+  animation: PageAnimate;
+  animation-duration: 500ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-direction: normal;
+}
+
+@keyframes PageAnimate {
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  100% {
+    left: 200px;
+    top: 0px;
+  }
+}
+
+.weather-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: auto;
+}
