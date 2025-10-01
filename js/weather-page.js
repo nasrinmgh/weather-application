@@ -9,7 +9,14 @@ function backToHome() {
   const backHomeBtn = document.querySelector(".back-home");
   const weatherPage = document.querySelector(".weather-page");
   const homePage = document.querySelector(".home-page");
-  backHomeBtn.addEventListener("click", () => {});
+  backHomeBtn.addEventListener("click", () => {
+    //show home page
+    homePage.style.display = "flex";
+    homePage.classList.add("fade-in");
+    weatherPage.style.display = "none";
+    weatherPage.classList.remove("fade-in");
+    //hide weather page
+  });
 }
 
 // Make sure listeners work eve if API does not

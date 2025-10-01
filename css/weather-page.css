@@ -1,3 +1,16 @@
+.fade-in {
+  animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .weather-page {
   display: flex;
   flex-direction: column;
@@ -6,34 +19,105 @@
   gap: 1rem;
   width: 100%;
   height: auto;
-}
-
-.page-animate {
   position: relative;
-  animation: PageAnimate;
-  animation-duration: 500ms;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-direction: normal;
 }
 
-@keyframes PageAnimate {
-  0% {
-    left: 0px;
-    top: 0px;
-  }
-  100% {
-    left: 200px;
-    top: 0px;
-  }
-}
-
-.weather-header {
+.weather-page .weather-header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   gap: 0.5rem;
   width: 100%;
   height: auto;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: #ffff;
+}
+
+.weather-page .weather-header #cityDisplay {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.weather-page .weather-header #degree {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.weather-header #airCondition,
+.details {
+  font-size: 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.3rem;
+}
+
+.weather-page .weather-header div {
+  text-align: center;
+}
+
+.weather-page .weather-header .details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Toggle divs */
+.toggle-switch {
+  display: inline-block;
+  position: relative;
+  width: 25rem;
+  margin: 1rem;
+}
+
+.slider {
+  display: block;
+  width: 25rem;
+  height: 1rem;
+  background-color: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+  padding: 0.1rem;
+}
+
+.slider::after {
+  content: "";
+  position: absolute;
+  width: 12.5rem;
+  height: 1rem;
+  background-color: white;
+  border-radius: 45px;
+  transition: transform 0.3s ease;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"]:checked + .slider {
+  background-color: rgba(15, 15, 52, 0.534);
+}
+
+input[type="checkbox"]:checked + .slider::after {
+  transform: translateX(100%);
+}
+
+.back-home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.back-home svg {
+  fill: #2a1b558f;
+  width: 2rem;
+  margin: 1rem 0;
 }
