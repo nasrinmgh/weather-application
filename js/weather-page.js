@@ -28,8 +28,9 @@ export function setWeatherPageListeners() {
 // FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
 async function getWeather() {
   try {
-    const defaults = localStorage.getItem("defaultCity");
+    const defaults = localStorage.getItem("defaultCity") || [];
     console.log(defaults);
+    //const lastDefault = defaults[defaults.length - 1];
     const cityName = defaults;
     //call forecast API
     const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
@@ -42,11 +43,16 @@ async function getWeather() {
     const currentTemp = document.getElementById("degree");
     const airCondition = document.getElementById("airCondition");
     const humidity = document.getElementById("humidity");
+    const visibility = document.getElementById("lighness");
 
     cityNameDisplay.textContent = cityName;
-    currentTemp.textContent = `${Math.round(WEATHER_data.list[0].temp)}°C`;
-    humidity.textContent = `${WEATHER_data.list[0].humidity}%`;
-    airCondition.textContent = WEATHER_data.weather[0].description;
+    currentTemp.textContent = `${Math.round(
+      WEATHER_data.list[0].main.temp - 273.15
+    )}°C`;
+
+    airCondition.textContent = WEATHER_data.list[0].weather[0].description;
+    humidity.textContent = `H:${WEATHER_data.list[0].main.humidity}%`;
+    visibility.textContent = `V:${WEATHER_data.list[0].visibility}`;
   } catch (error) {
     console.error("Error fetching weather data", error);
     alert("Failed to fetch weather data");
