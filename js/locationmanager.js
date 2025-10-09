@@ -14,7 +14,6 @@ export function locationManagerInitialize() {
         return;
       }
       getLocation(city);
-      // addCityToLocalStorage(city);
       renderCities();
     });
   }
@@ -27,19 +26,6 @@ export function locationManagerInitialize() {
     }
   });
 
-  const doneBtn = document.getElementById("search-done-btn");
-  if (doneBtn) {
-    doneBtn.addEventListener("click", () => {});
-  }
-  /* const city = document.getElementById("searchInput").value.trim();
-      if (!city) {
-        return;
-      }
-      addCityToLocalStorage(city);
-      renderCities();
-    });
-  }
- */
   renderCities();
   loadDefaultCity();
 }
@@ -55,23 +41,25 @@ function deleteCityCard(event) {
   parentCard.remove();
 }
 
+// Save a city as default
 function chooseDefaultCity(event) {
   const clicked = event.target;
   const parent = clicked.closest(".city-card");
   const leftSide = parent.querySelector(".left-side");
+
   document.querySelectorAll(".default-sign").forEach((sign) => sign.remove());
   document
     .querySelectorAll(".choose-city")
     .forEach((icon) => (icon.style.display = "block"));
+
   clicked.style.display = "none";
   const defaultSign = document.createElement("div");
   defaultSign.classList.add("default-sign");
   defaultSign.textContent = "default";
   leftSide.append(defaultSign);
+
   const defaultCity = leftSide.querySelector(".city-card-name").textContent;
   localStorage.setItem("defaultCity", defaultCity);
-  const defaults = localStorage.getItem("defaultCity");
-  console.log(defaults);
 }
 
 function loadDefaultCity() {
@@ -83,19 +71,17 @@ function loadDefaultCity() {
   document.querySelectorAll(".city-card").forEach((city) => {
     const name = city.querySelector(".city-card-name").textContent;
     if (name == defaultCityName) {
-      const defaultDiv = document
-        .createElement("div")
-        .classList.add("default-sign");
+      const defaultDiv = document.createElement("div");
+      defaultDiv.classList.add("default-sign");
       defaultDiv.textContent = "default";
-      city.querySelector("city-card-name").prepend(defaultDiv);
+      city.querySelector(".city-card-name").prepend(defaultDiv);
     }
   });
 }
 
 // fetch city
-async function getLocation() {
-  let city = document.getElementById("searchInput").value.trim();
-  const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
+async function getLocation(city) {
+  city = document.getElementById("searchInput").value.trim();
   let input = document.getElementById("searchInput");
 
   if (!city) {
@@ -103,8 +89,9 @@ async function getLocation() {
     alert("Please enter a city name");
     return;
   }
+  let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+  if (!savedCities) return;
 
-  let savedCities = JSON.parse(localStorage.getItem("savedCities"));
   if (
     savedCities.some(
       (c) => typeof c == "string" && c.toLowerCase() === city.toLowerCase()
@@ -114,8 +101,9 @@ async function getLocation() {
     input.value = "";
     return;
   }
-
   try {
+    const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
+
     const GEO_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
     const GEO_response = await fetch(GEO_URL);
     const GEO_data = await GEO_response.json();
@@ -176,6 +164,7 @@ function createCityCard(cityName) {
   const cityTitle = card.querySelector(".city-card-name");
   cityTitle.textContent = cityName;
   cardsContainer.prepend(card);
+
   const cityInput = document.getElementById("searchInput");
   cityInput.value = "";
 }
@@ -198,26 +187,4 @@ export function renderCities() {
   });
   let input = document.getElementById("searchInput");
   input.value = "";
-}
-
-// FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
-async function getWeather() {
-  try {
-    //call forecast API
-    const WEATHER_API = `http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}`;
-    const WEATHER_response = await fetch(WEATHER_API);
-    const WEATHER_data = await WEATHER_response.json();
-
-    //Manipulate DOM
-    const cityNameDisplay = document.getElementById("city");
-    const currentTemp = document.getElementById("temp");
-    const humidity = document.getElementById("humidity");
-
-    cityNameDisplay.textContent = cityNAME;
-    currentTemp.textContent = `${WEATHER_data.current.temperature_2m}°C`;
-    humidity.textContent = `${WEATHER_data.current.relative_humidity_2m}%`;
-  } catch (error) {
-    console.error("Error fetching weather data", error);
-    alert("Failed to fetch weather data");
-  }
 }

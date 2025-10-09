@@ -1,5 +1,5 @@
 export function weatherInitialize() {
-  // getWeather
+  getWeather();
   //what to do if API did not work
   // what to do it it did not show the city or other divs
 }
@@ -10,19 +10,45 @@ function backToHome() {
   const weatherPage = document.querySelector(".weather-page");
   const homePage = document.querySelector(".home-page");
   backHomeBtn.addEventListener("click", () => {
-    //show home page
     homePage.style.display = "flex";
     homePage.classList.add("fade-in");
     weatherPage.style.display = "none";
     weatherPage.classList.remove("fade-in");
-    //hide weather page
   });
 }
 
-// Make sure listeners work eve if API does not
+// Make sure listeners work even if API does not
 export function setWeatherPageListeners() {
   const backHomeBtn = document.querySelector(".back-home");
   if (backHomeBtn) {
     backToHome();
+  }
+}
+
+// FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
+async function getWeather() {
+  try {
+    const defaults = localStorage.getItem("defaultCity");
+    console.log(defaults);
+    const cityName = defaults;
+    //call forecast API
+    const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
+    const WEATHER_API = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}`;
+    const WEATHER_response = await fetch(WEATHER_API);
+    const WEATHER_data = await WEATHER_response.json();
+
+    //Manipulate DOM
+    const cityNameDisplay = document.getElementById("cityDisplay");
+    const currentTemp = document.getElementById("degree");
+    const airCondition = document.getElementById("airCondition");
+    const humidity = document.getElementById("humidity");
+
+    cityNameDisplay.textContent = cityName;
+    currentTemp.textContent = `${Math.round(WEATHER_data.list[0].temp)}°C`;
+    humidity.textContent = `${WEATHER_data.list[0].humidity}%`;
+    airCondition.textContent = WEATHER_data.weather[0].description;
+  } catch (error) {
+    console.error("Error fetching weather data", error);
+    alert("Failed to fetch weather data");
   }
 }
