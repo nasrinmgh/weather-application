@@ -43,7 +43,7 @@ async function getWeather() {
     const currentTemp = document.getElementById("degree");
     const airCondition = document.getElementById("airCondition");
     const humidity = document.getElementById("humidity");
-    const visibility = document.getElementById("lighness");
+    const visibility = document.getElementById("visibility");
 
     cityNameDisplay.textContent = cityName;
     currentTemp.textContent = `${Math.round(
@@ -51,8 +51,8 @@ async function getWeather() {
     )}°C`;
 
     airCondition.textContent = WEATHER_data.list[0].weather[0].description;
-    humidity.textContent = `H:${WEATHER_data.list[0].main.humidity}%`;
-    visibility.textContent = `V:${WEATHER_data.list[0].visibility}`;
+    humidity.textContent = `H: ${WEATHER_data.list[0].main.humidity}%`;
+    visibility.textContent = `V: ${WEATHER_data.list[0].visibility}m`;
   } catch (error) {
     console.error("Error fetching weather data", error);
     alert("Failed to fetch weather data");
