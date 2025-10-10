@@ -1,0 +1,157 @@
+html {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    to left,
+    rgba(30, 58, 138, 0.8),
+    rgb(88, 28, 135, 0.8)
+  );
+  color: #ffff;
+}
+
+body,
+.loading-page,
+.loading-content,
+.wind-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loading-page {
+  height: 100vh;
+  max-width: 25rem;
+  color: #ffff;
+  margin: 0;
+  position: relative;
+}
+
+.loading-content .cloud-icon {
+  fill: rgba(245, 241, 241, 0.274);
+  width: 4rem;
+  position: absolute;
+  top: 6rem;
+  left: -3rem;
+}
+
+.loading-content .snow-icon {
+  fill: rgba(245, 241, 241, 0.179);
+  width: 3rem;
+  position: absolute;
+  right: -3rem;
+  top: 10rem;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-icons {
+  position: relative;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  fill: #ffff;
+  margin-top: 0;
+}
+
+.loading-icons .cloud-moon {
+  fill: rgba(245, 241, 241, 0.274);
+  position: absolute;
+  z-index: -1;
+  left: -1rem;
+  top: 1.2rem;
+  width: 3rem;
+}
+
+.loading-icons .wind-icon {
+  width: 8rem;
+  height: 8rem;
+  border: transparent;
+  border-radius: 50%;
+  background-color: rgba(245, 241, 241, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.wind-icon svg {
+  width: 4.5rem;
+  padding: 1rem;
+}
+
+.loading-icons .sun-icon {
+  width: 3rem;
+  position: relative;
+  bottom: 9rem;
+  left: 3rem;
+  fill: rgba(240, 179, 24, 0.6);
+}
+
+.loading-content h2 {
+  font-size: 2rem;
+}
+
+.loading-content p {
+  font-size: 1.5rem;
+  color: rgba(245, 241, 241, 0.7);
+}
+
+.loading-content .progress-bar {
+  width: 19rem;
+  height: 0.5rem;
+  background: rgba(255, 255, 255, 0.096);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.progress-bar .progress {
+  width: 0%;
+  height: 100%;
+  background: #a78bfa;
+  animation: load 3s ease-in-out infinite;
+}
+
+@keyframes load {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 1rem;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.407);
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
