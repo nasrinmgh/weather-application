@@ -17,9 +17,3 @@ export function showLoginForm() {
   loginForm.classList.add("active");
   registerForm.classList.remove("active");
 }
-
-/* TO LOGIN THE USER
-export function loginUser(event) {
-  event.preventDefault();
-}
-  */

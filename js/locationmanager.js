@@ -103,7 +103,6 @@ async function getLocation(city) {
   }
   try {
     const API_KEY = "da423d4208c663d2a79bfdb258836ed5";
-
     const GEO_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
     const GEO_response = await fetch(GEO_URL);
     const GEO_data = await GEO_response.json();
