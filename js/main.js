@@ -6,8 +6,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 import { locationManagerInitialize } from "./locationmanager.js";
 import { setWeatherPageListeners, weatherInitialize } from "./weather-page.js";
-import { showLoadingState } from "./weather-page.js";
-import { loadPageDom } from "./weather-page.js";
 
 async function loadPage(page) {
   try {
@@ -26,11 +24,6 @@ async function loadPage(page) {
     }
     if (page === "home") {
       loadHomePageScripts();
-    }
-
-    if (page === "loading") {
-      loadPageDom();
-      showLoadingState();
     }
   } catch (error) {
     console.error("Error loading page:", error);
@@ -193,14 +186,11 @@ function showWelcome() {
 }
 
 function loadWeatherPage() {
-  setWeatherPageListeners();
   weatherInitialize();
+  setWeatherPageListeners();
 }
 
-function comeUpWeatherPage() {
-  loadPage("home");
-  const homePage = document.querySelector(".home-page");
-  homePage.style.display = "none";
+function showWeatherData() {
   const weatherPage = document.querySelector(".weather-page");
   weatherPage.style.display = "flex";
   weatherPage.classList.add("fade-in");
@@ -217,9 +207,8 @@ function loadHomePageScripts() {
         .getElementById("search-done-btn")
         .addEventListener("click", () => {
           locationBox.classList.remove("show");
-          loadPage("loading");
-          comeUpWeatherPage();
-          setTimeout(loadWeatherPage, 2000);
+          loadWeatherPage();
+          showWeatherData();
         });
     }
     locationManagerInitialize();
