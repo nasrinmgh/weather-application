@@ -5,7 +5,12 @@ import {
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 import { locationManagerInitialize } from "./locationmanager.js";
-import { setWeatherPageListeners, weatherInitialize } from "./weather-page.js";
+import {
+  getWeather,
+  setWeatherPageListeners,
+  showLoadingState,
+  //weatherInitialize,
+} from "./weather-page.js";
 
 async function loadPage(page) {
   try {
@@ -185,10 +190,10 @@ function showWelcome() {
   }, 2000);
 }
 
-function loadWeatherPage() {
-  weatherInitialize();
-  setWeatherPageListeners();
-}
+//function loadWeatherPage() {
+// weatherInitialize();
+//setWeatherPageListeners();
+//}
 
 function showWeatherData() {
   const weatherPage = document.querySelector(".weather-page");
@@ -205,10 +210,14 @@ function loadHomePageScripts() {
     if (locationBox) {
       document
         .getElementById("search-done-btn")
-        .addEventListener("click", () => {
+        .addEventListener("click", async () => {
           locationBox.classList.remove("show");
-          loadWeatherPage();
+          showLoadingState();
+          await getWeather();
+          setWeatherPageListeners();
           showWeatherData();
+          //loadWeatherPage();
+          //showWeatherData();
         });
     }
     locationManagerInitialize();

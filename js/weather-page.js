@@ -1,9 +1,9 @@
-export function weatherInitialize() {
-  getWeather();
+//export function weatherInitialize() {
+//getWeather();
 
-  //what to do if API did not work
-  // what to do it it did not show the city or other divs
-}
+//what to do if API did not work
+// what to do it it did not show the city or other divs
+//}
 
 //Back home button
 function backToHome() {
@@ -30,21 +30,20 @@ export function setWeatherPageListeners() {
 export function showLoadingState() {
   const loadingPage = document.querySelector(".loading-page");
   const homePage = document.querySelector(".home-page");
+  const weatherPage = document.querySelector(".weather-page");
   homePage.style.display = "none";
+  weatherPage.style.display = "none";
   loadingPage.style.display = "flex";
   loadingPage.classList.add("fade-in");
 }
 
 // FETCH FROM WEATHER API ON LOCATION MANAGER PAGE
-async function getWeather() {
+export async function getWeather() {
   const loadingPage = document.querySelector(".loading-page");
   const homePage = document.querySelector(".home-page");
 
   try {
-    homePage.style.display = "none";
-    loadingPage.style.display = "flex";
-    loadingPage.classList.add("fade-in");
-
+    showLoadingState();
     const defaults = localStorage.getItem("defaultCity") || [];
     console.log(defaults);
     const cityName = defaults;
@@ -73,9 +72,8 @@ async function getWeather() {
     console.error("Error fetching weather data", error);
     alert("Failed to fetch weather data");
   } finally {
-    //const loadingPage = document.querySelector(".loading-page");
-    //const homePage = document.querySelector(".home-page");
-    homePage.style.display = "none";
     loadingPage.style.display = "none";
+    homePage.style.display = "none";
+    loadingPage.classList.remove("fade-in");
   }
 }
