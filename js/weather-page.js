@@ -77,3 +77,27 @@ export async function getWeather() {
     loadingPage.classList.remove("fade-in");
   }
 }
+
+// Toggle options
+function buildDailyCard() {
+  const slider = document.querySelector(".slider");
+  slider.addEventListener("click", () => {
+    const dailyCard = document.createElement("div");
+    dailyCard.classList.add("daily-cards-container");
+    dailyCard.innerHTML = `<div class="daily-card">
+        <div class="weather-info">
+            <div id="nameOfDay"></div>
+            <div id="date"></div>
+            <div class="temps-daily">
+                <div id="maxTemp"></div>
+                <div id="minTemp"></div>
+            </div>
+            <div id="descriptionDaily"></div>
+        </div>
+        <div class="weather-icon">
+            <div id="dailyIcon"></div>
+            <div id="dailyPop"></div>
+        </div>
+    </div>`;
+  });
+}
