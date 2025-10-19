@@ -55,7 +55,7 @@ export async function getWeather() {
 
     //Pass the data to build cards
     //buildDailyCard(WEATHER_data);
-    //buildHourlyCard(WEATHER_data);
+    displayHourlyCard(WEATHER_data);
     formatDate(WEATHER_data);
     //Manipulate DOM
     const cityNameDisplay = document.getElementById("cityDisplay");
@@ -83,40 +83,71 @@ export async function getWeather() {
 }
 
 // helper: format day/date
-function formatDate(WEATHER_data) {
-  const dt = WEATHER_data.list[0].dt;
+function formatDate(entry) {
+  const dt = entry.dt;
   const date = new Date(dt * 1000);
   return {
-    day: date.getDay(),
-    month: date.getMonth(),
+    day: date.getDate(),
+    month: date.getMonth() + 1,
     weekday: date.toLocaleString("en-US", { weekday: "long" }),
-    hour: date.getHours(),
-    minute: date.getMinutes(),
+    hour24: date.getHours(),
+    hour12: (() => {
+      const hour = date.getHours();
+      if (hour === 0) return 12;
+      if (hour > 12) return hour - 12;
+      return hour;
+    })(),
+    // minute: date.getMinutes(),
   };
 }
-function buildCards() {}
 
+// Build card
 function buildHourlyCard() {
   const hourlyCard = document.createElement("div");
-  card.classList.add("hourly-card", "glass");
+  hourlyCard.classList.add("hourly-card", "glass");
   hourlyCard.innerHTML = `
         <div class="hourly-time"></div>
         <div class="hourly-icon"></div>
         <div class="hourly-temp"></div>
         <div class="hourly-hum"></div>   
 `;
+  return hourlyCard;
 }
 
-function buildHourlyCard() {
+// Hourly-forecast option
+function displayHourlyCard(WEATHER_data) {
   const hourlyContainer = document.querySelector(".hourly-forecast");
   hourlyContainer.innerHTML = "";
+
   WEATHER_data.list.forEach((entry) => {
-    const hourlyCard = buildCards();
-    const formattedDate = formatDate(WEATHER_data);
+    const smallCard = buildHourlyCard();
+    const formattedDate = formatDate(entry);
+
+    // time
+    const ampm = formattedDate.hour24 >= 12 ? "PM" : "AM";
+    smallCard.querySelector(
+      ".hourly-time"
+    ).textContent = `${formattedDate.hour12} ${ampm}`;
+
+    // icon
+    const iconCode = entry.weather[0].icon;
+    const desc = entry.weather[0].description;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+    smallCard.querySelector(".hourly-icon").innerHTML = `
+    <img src="${iconUrl}" alt="${desc}">`;
+
+    // temp & humidity
+    const hourlyTemp = entry.main.temp - 273.15;
+    smallCard.querySelector(".hourly-temp").textContent = `${hourlyTemp}°`;
+
+    const hourlyHum = entry.main.humidity;
+    smallCard.querySelector(".hourly-hum").textContent = `${hourlyHum}%`;
+
+    hourlyContainer.appendChild(smallCard);
   });
 }
 
-//Toggle options
+/*Toggle options
 function buildDailyCard(WEATHER_data) {
   const slider = document.querySelector(".slider");
   const listOfDays = WEATHER_data.list;
@@ -171,3 +202,4 @@ function buildDailyCard(WEATHER_data) {
     })
   );
 }
+*/
