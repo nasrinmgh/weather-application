@@ -53,6 +53,10 @@ export async function getWeather() {
     const WEATHER_response = await fetch(WEATHER_API);
     const WEATHER_data = await WEATHER_response.json();
 
+    //Pass the data to build cards
+    //buildDailyCard(WEATHER_data);
+    //buildHourlyCard(WEATHER_data);
+    formatDate(WEATHER_data);
     //Manipulate DOM
     const cityNameDisplay = document.getElementById("cityDisplay");
     const currentTemp = document.getElementById("degree");
@@ -78,19 +82,56 @@ export async function getWeather() {
   }
 }
 
-// Toggle options
-function buildDailyCard() {
+// helper: format day/date
+function formatDate(WEATHER_data) {
+  const dt = WEATHER_data.list[0].dt;
+  const date = new Date(dt * 1000);
+  return {
+    day: date.getDay(),
+    month: date.getMonth(),
+    weekday: date.toLocaleString("en-US", { weekday: "long" }),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+  };
+}
+function buildCards() {}
+
+function buildHourlyCard() {
+  const hourlyCard = document.createElement("div");
+  card.classList.add("hourly-card", "glass");
+  hourlyCard.innerHTML = `
+        <div class="hourly-time"></div>
+        <div class="hourly-icon"></div>
+        <div class="hourly-temp"></div>
+        <div class="hourly-hum"></div>   
+`;
+}
+
+function buildHourlyCard() {
+  const hourlyContainer = document.querySelector(".hourly-forecast");
+  hourlyContainer.innerHTML = "";
+  WEATHER_data.list.forEach((entry) => {
+    const hourlyCard = buildCards();
+    const formattedDate = formatDate(WEATHER_data);
+  });
+}
+
+//Toggle options
+function buildDailyCard(WEATHER_data) {
   const slider = document.querySelector(".slider");
-  slider.addEventListener("click", () => {
-    const dailyCard = document.createElement("div");
-    dailyCard.classList.add("daily-cards-container");
-    dailyCard.innerHTML = `<div class="daily-card">
+  const listOfDays = WEATHER_data.list;
+  slider.addEventListener(
+    "click",
+    listOfDays.forEach((list) => {
+      const dailyCard = document.createElement("div");
+      dailyCard.classList.add("daily-card", "glass");
+      dailyCard.innerHTML = `
         <div class="weather-info">
             <div id="nameOfDay"></div>
-            <div id="date"></div>
+            <div id="date" class="semi-transparent"></div>
             <div class="temps-daily">
                 <div id="maxTemp"></div>
-                <div id="minTemp"></div>
+                <div id="minTemp" class="semi-transparent"></div>
             </div>
             <div id="descriptionDaily"></div>
         </div>
@@ -98,6 +139,35 @@ function buildDailyCard() {
             <div id="dailyIcon"></div>
             <div id="dailyPop"></div>
         </div>
-    </div>`;
-  });
+    `;
+
+      const nameOfDay = document.getElementById("nameOfDay");
+      const dt = WEATHER_data.list[0].dt * 1000;
+      const dateOfDay = new Date(dt);
+      nameOfDay.textContent = dateOfDay.toLocaleDateString("en-US", {
+        weekday: "long",
+      });
+
+      const date = document.getElementById("date");
+      date.textContent = dateOfDay.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
+
+      const dailyIcon = document.getElementById("dailyIcon");
+      dailyIcon.textContent = WEATHER_data.list[0].weather[0].icon;
+
+      const dailyPop = document.getElementById("dailyPop");
+      dailyPop.textContent = WEATHER_data.list[0].pop;
+
+      const maxTemp = document.getElementById("maxTemp");
+      const minTemp = document.getElementById("minTemp");
+      maxTemp.textContent = WEATHER_data.list[0].temp_max;
+      minTemp.textContent = WEATHER_data.list[0].temp_min;
+
+      const descriptionDaily = document.getElementById("descriptionDaily");
+      descriptionDaily.textContent =
+        WEATHER_data.list[0].weather[0].description;
+    })
+  );
 }
