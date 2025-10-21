@@ -14,11 +14,11 @@
 .weather-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   gap: 1rem;
   width: 100%;
-  height: auto;
+  height: 100vh;
   position: relative;
 }
 
@@ -65,8 +65,38 @@
 }
 
 /* Toggle divs */
+.forecast-toggle {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.forecast-toggle #hourlyToggle {
+  position: absolute;
+  top: 0.6rem;
+  z-index: 10;
+  left: 2.7rem;
+  color: #777777a9;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.forecast-toggle #dailyToggle {
+  position: absolute;
+  right: 4rem;
+  color: #777777;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
 .toggle-switch {
   display: inline-block;
+  position: relative;
   position: relative;
   width: 25rem;
   margin: 1rem;
@@ -105,6 +135,75 @@ input[type="checkbox"]:checked + .slider {
 
 input[type="checkbox"]:checked + .slider::after {
   transform: translateX(100%);
+}
+
+.toggle-options {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 25rem;
+  height: 30rem;
+  scroll-behavior: auto;
+}
+
+.toggle-options .hourly-forecast,
+.daily-forecast {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  max-width: 25rem;
+  padding: 0 0.5rem;
+  height: 30rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 30rem;
+  position: absolute;
+  top: 0;
+}
+
+.glass {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  height: auto;
+}
+
+.semi-transparent {
+  color: rgba(245, 241, 241, 0.9);
+}
+
+.hourly-card,
+.daily-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 25rem;
+  margin: 0.3rem;
+  position: relative;
+}
+
+.daily-card .weather-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.weather-info #nameOfDay {
+  color: #ffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.daily-card .weather-icon #dailyPop {
+  color: #67e8f9;
 }
 
 .back-home {

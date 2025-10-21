@@ -137,7 +137,7 @@ function displayHourlyCard(WEATHER_data) {
     <img src="${iconUrl}" alt="${desc}">`;
 
     // temp & humidity
-    const hourlyTemp = entry.main.temp - 273.15;
+    const hourlyTemp = Math.round(entry.main.temp - 273.15);
     smallCard.querySelector(".hourly-temp").textContent = `${hourlyTemp}°`;
 
     const hourlyHum = entry.main.humidity;
