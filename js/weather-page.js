@@ -54,9 +54,11 @@ export async function getWeather() {
     const WEATHER_data = await WEATHER_response.json();
 
     //Pass the data to build cards
-    //buildDailyCard(WEATHER_data);
+    displayDailyCard(WEATHER_data);
+    sumDailyData(WEATHER_data);
     displayHourlyCard(WEATHER_data);
     formatDate(WEATHER_data);
+
     //Manipulate DOM
     const cityNameDisplay = document.getElementById("cityDisplay");
     const currentTemp = document.getElementById("degree");
@@ -97,7 +99,6 @@ function formatDate(entry) {
       if (hour > 12) return hour - 12;
       return hour;
     })(),
-    // minute: date.getMinutes(),
   };
 }
 
@@ -141,65 +142,130 @@ function displayHourlyCard(WEATHER_data) {
     smallCard.querySelector(".hourly-temp").textContent = `${hourlyTemp}°`;
 
     const hourlyHum = entry.main.humidity;
-    smallCard.querySelector(".hourly-hum").textContent = `${hourlyHum}%`;
+    smallCard.querySelector(".hourly-hum").innerHTML = `
+    <svg class="rainy-prob" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M160 384C107 384 64 341 64 288C64 245.5 91.6 209.4 129.9 196.8C128.6 190.1 128 183.1 128 176C128 114.1 178.1 64 240 64C283.1 64 320.5 88.3 339.2 124C353.9 106.9 375.7 96 400 96C444.2 96 480 131.8 480 176C480 181.5 479.4 186.8 478.4 192C478.9 192 479.5 192 480 192C533 192 576 235 576 288C576 341 533 384 480 384L160 384zM166.8 463.6L134.8 559.6C130.6 572.2 117 579 104.4 574.8C91.8 570.6 85 557 89.2 544.4L121.2 448.4C125.4 435.8 139 429 151.6 433.2C164.2 437.4 171 451 166.8 463.6zM286.8 463.6L254.8 559.6C250.6 572.2 237 579 224.4 574.8C211.8 570.6 205 557 209.2 544.4L241.2 448.4C245.4 435.8 259 429 271.6 433.2C284.2 437.4 291 451 286.8 463.6zM398.8 463.6L366.8 559.6C362.6 572.2 349 579 336.4 574.8C323.8 570.6 317 557 321.2 544.4L353.2 448.4C357.4 435.8 371 429 383.6 433.2C396.2 437.4 403 451 398.8 463.6zM518.8 463.6L486.8 559.6C482.6 572.2 469 579 456.4 574.8C443.8 570.6 437 557 441.2 544.4L473.2 448.4C477.4 435.8 491 429 503.6 433.2C516.2 437.4 523 451 518.8 463.6z"/></svg>
+    ${hourlyHum}%`;
 
     hourlyContainer.appendChild(smallCard);
   });
 }
 
-/*Toggle options
-function buildDailyCard(WEATHER_data) {
-  const slider = document.querySelector(".slider");
-  const listOfDays = WEATHER_data.list;
-  slider.addEventListener(
-    "click",
-    listOfDays.forEach((list) => {
-      const dailyCard = document.createElement("div");
-      dailyCard.classList.add("daily-card", "glass");
-      dailyCard.innerHTML = `
-        <div class="weather-info">
-            <div id="nameOfDay"></div>
-            <div id="date" class="semi-transparent"></div>
-            <div class="temps-daily">
-                <div id="maxTemp"></div>
-                <div id="minTemp" class="semi-transparent"></div>
-            </div>
-            <div id="descriptionDaily"></div>
-        </div>
-        <div class="weather-icon">
-            <div id="dailyIcon"></div>
-            <div id="dailyPop"></div>
-        </div>
-    `;
+function sumDailyData(WEATHER_data) {
+  const entries = WEATHER_data.list;
+  entries.map((entry) => {
+    const minTemps = entry.main.temp_min;
+    const maxTemps = entry.main.temp_max;
+    const allDescs = entry.weather[0].description;
+    const allHums = entry.main.humidity;
 
-      const nameOfDay = document.getElementById("nameOfDay");
-      const dt = WEATHER_data.list[0].dt * 1000;
-      const dateOfDay = new Date(dt);
-      nameOfDay.textContent = dateOfDay.toLocaleDateString("en-US", {
-        weekday: "long",
-      });
+    const maxTemp = Math.max(...maxTemps);
+    const minTemp = Math.min(...minTemps);
 
-      const date = document.getElementById("date");
-      date.textContent = dateOfDay.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      });
+    const frequencyMAp = allDescs.reduce((count, description) => {
+      count[description] = (count[description] || 0) + 1;
+      return count;
+    }, {});
+    let mostFrequent = Object.keys(frequencyMAp).reduce((a, b) => {
+      return frequencyMAp[a] > frequencyMAp[b] ? a : b;
+    });
 
-      const dailyIcon = document.getElementById("dailyIcon");
-      dailyIcon.textContent = WEATHER_data.list[0].weather[0].icon;
+    const sumHums = allHums.reduce((sum, currentHum) => sum + currentHum, 0);
+    const dailyHum = sumHums / allHums.length;
 
-      const dailyPop = document.getElementById("dailyPop");
-      dailyPop.textContent = WEATHER_data.list[0].pop;
-
-      const maxTemp = document.getElementById("maxTemp");
-      const minTemp = document.getElementById("minTemp");
-      maxTemp.textContent = WEATHER_data.list[0].temp_max;
-      minTemp.textContent = WEATHER_data.list[0].temp_min;
-
-      const descriptionDaily = document.getElementById("descriptionDaily");
-      descriptionDaily.textContent =
-        WEATHER_data.list[0].weather[0].description;
-    })
-  );
+    let dailySummary = {
+      high: maxTemp,
+      low: minTemp,
+      hum: dailyHum,
+      condition: mostFrequent,
+    };
+    return dailySummary;
+  });
+  return dailySummary;
 }
-*/
+
+/*
+function processDailyData(WEATHER_data) {
+  const grouped = {};
+
+  WEATHER_data.list.forEach((item) => {
+    const dateKey = item.dt_txt.split(" ")[0];
+    if (!grouped[dateKey]) grouped[dateKey] = [];
+    grouped[dateKey].push(item);
+  });
+
+  const dailySummary = Object.keys(grouped).map((dateKey) => {
+    const entries = grouped[dateKey];
+
+    const maxTemps = entries.map((e) => e.main.temp_max - 273.15);
+    const minTemps = entries.map((e) => e.main.temp_min - 273.15);
+
+    const midday =
+      entries.find((e) => {
+        const hour = formatDate(e).hour24;
+        return hour >= 12 && hour <= 15;
+      }) || entries[0];
+
+    const humAvg =
+      entries.reduce((sum, e) => sum + e.main.humidity, 0) / entries.length;
+
+    const rainMax = Math.max(...entries.map((e) => e.rain?.["3h"] || 0));
+
+    return {
+      date: dateKey,
+      weekday: formatDate(e).weekday,
+      high: Math.round(Math.max(...maxTemps)),
+      low: Math.round(Math.max(...minTemps)),
+      condition: midday.weather[0].description,
+      icon: midday.weather[0].icon,
+      humidity: Math.round(humAvg),
+      precipitation: rainMax,
+    };
+  });
+  return dailySummary;
+}
+
+// Daily forecast cards
+function buildDailyCard() {
+  const dailyCard = document.createElement("div");
+  dailyCard.classList.add("daily-card", "glass");
+  dailyCard.innerHTML = `
+  <div class="left-info">
+            <div class="daily-date">
+                <div class="weekday"></div>
+                <div class="date"></div>
+            </div>
+            <div class="daily-temps">
+                <div class="max-temp"></div>
+                <div class="min-temp"></div>
+            </div>
+            <div class="daily-desc"></div>
+        </div>
+        <div class="right-info">
+            <div class="daily-icon"></div>
+            <div class="daily-hum"></div>
+        </div>`;
+  return dailyCard;
+}
+// Display daily cards
+function displayDailyCard(WEATHER_data) {
+  const dailyContainer = document.querySelector(".daily-forecast");
+  dailyContainer.innerHTML = "";
+
+  const dailyData = processDailyData(WEATHER_data);
+  dailyData.forEach((day) => {
+    const largeCard = buildDailyCard();
+
+    largeCard.querySelector(".weekday").textContent = day.weekday;
+    largeCard.querySelector(".date").textContent = `${month} ${day}`;
+
+    largeCard.querySelector(".max-temp").textContent = `${day.high}°C`;
+
+    largeCard.querySelector(".min-temp").textContent = `${day.low}°C`;
+
+    largeCard.querySelector(".daily-desc").textContent = day.condition;
+    largeCard.querySelector(".daily-hum").textContent = `${day.humidity}%`;
+
+    dailyContainer.appendChild(card);
+  });
+}
+  */
