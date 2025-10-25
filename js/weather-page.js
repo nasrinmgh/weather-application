@@ -55,7 +55,7 @@ export async function getWeather() {
 
     //Pass the data to build cards
     displayDailyCard(WEATHER_data);
-    sumDailyData(WEATHER_data);
+    processDailyData(WEATHER_data);
     displayHourlyCard(WEATHER_data);
     formatDate(WEATHER_data);
 
@@ -150,78 +150,57 @@ function displayHourlyCard(WEATHER_data) {
   });
 }
 
-function sumDailyData(WEATHER_data) {
+function processDailyData(WEATHER_data) {
   const entries = WEATHER_data.list;
-  entries.map((entry) => {
-    const minTemps = entry.main.temp_min;
-    const maxTemps = entry.main.temp_max;
-    const allDescs = entry.weather[0].description;
-    const allHums = entry.main.humidity;
+  const dailyForecasts = {};
 
-    const maxTemp = Math.max(...maxTemps);
-    const minTemp = Math.min(...minTemps);
+  entries.forEach((entry) => {
+    const date = new Date(entry.dt * 1000).toLocaleDateString("en-US");
+    if (!dailyForecasts[date]) {
+      dailyForecasts[date] = {
+        minTemps: [],
+        maxTemps: [],
+        descriptions: [],
+        humidities: [],
+        dateObj: new Date(entry.dt * 1000),
+      };
+    }
 
-    const frequencyMAp = allDescs.reduce((count, description) => {
+    dailyForecasts[date].minTemps.push(entry.main.temp_min);
+    dailyForecasts[date].maxTemps.push(entry.main.temp_max);
+    dailyForecasts[date].descriptions.push(entry.weather[0].description);
+    dailyForecasts[date].humidities.push(entry.main.humidity);
+  });
+
+  return Object.values(dailyForecasts).map((day) => {
+    const maxTemp = Math.max(...day.maxTemps);
+    const minTemp = Math.min(...day.minTemps);
+
+    const frequencyMAp = day.descriptions.reduce((count, description) => {
       count[description] = (count[description] || 0) + 1;
       return count;
     }, {});
-    let mostFrequent = Object.keys(frequencyMAp).reduce((a, b) => {
+
+    const mostFrequent = Object.keys(frequencyMAp).reduce((a, b) => {
       return frequencyMAp[a] > frequencyMAp[b] ? a : b;
     });
 
-    const sumHums = allHums.reduce((sum, currentHum) => sum + currentHum, 0);
-    const dailyHum = sumHums / allHums.length;
-
-    let dailySummary = {
-      high: maxTemp,
-      low: minTemp,
-      hum: dailyHum,
-      condition: mostFrequent,
-    };
-    return dailySummary;
-  });
-  return dailySummary;
-}
-
-/*
-function processDailyData(WEATHER_data) {
-  const grouped = {};
-
-  WEATHER_data.list.forEach((item) => {
-    const dateKey = item.dt_txt.split(" ")[0];
-    if (!grouped[dateKey]) grouped[dateKey] = [];
-    grouped[dateKey].push(item);
-  });
-
-  const dailySummary = Object.keys(grouped).map((dateKey) => {
-    const entries = grouped[dateKey];
-
-    const maxTemps = entries.map((e) => e.main.temp_max - 273.15);
-    const minTemps = entries.map((e) => e.main.temp_min - 273.15);
-
-    const midday =
-      entries.find((e) => {
-        const hour = formatDate(e).hour24;
-        return hour >= 12 && hour <= 15;
-      }) || entries[0];
-
-    const humAvg =
-      entries.reduce((sum, e) => sum + e.main.humidity, 0) / entries.length;
-
-    const rainMax = Math.max(...entries.map((e) => e.rain?.["3h"] || 0));
+    const sumHums = day.humidities.reduce(
+      (sum, currentHum) => sum + currentHum,
+      0
+    );
+    const dailyHum = sumHums / day.humidities.length;
 
     return {
-      date: dateKey,
-      weekday: formatDate(e).weekday,
-      high: Math.round(Math.max(...maxTemps)),
-      low: Math.round(Math.max(...minTemps)),
-      condition: midday.weather[0].description,
-      icon: midday.weather[0].icon,
-      humidity: Math.round(humAvg),
-      precipitation: rainMax,
+      weekday: day.dateObj.toLocaleDateString("en-US", { weekday: "long" }),
+      date: day.dateObj.getDate(),
+      month: day.dateObj.toLocaleDateString("en-US", { month: "short" }),
+      high: Math.round(maxTemp),
+      low: Math.round(minTemp),
+      hum: Math.round(dailyHum),
+      condition: mostFrequent,
     };
   });
-  return dailySummary;
 }
 
 // Daily forecast cards
@@ -256,16 +235,15 @@ function displayDailyCard(WEATHER_data) {
     const largeCard = buildDailyCard();
 
     largeCard.querySelector(".weekday").textContent = day.weekday;
-    largeCard.querySelector(".date").textContent = `${month} ${day}`;
+    largeCard.querySelector(".date").textContent = `${day.month} ${day.date}`;
 
     largeCard.querySelector(".max-temp").textContent = `${day.high}°C`;
 
     largeCard.querySelector(".min-temp").textContent = `${day.low}°C`;
 
     largeCard.querySelector(".daily-desc").textContent = day.condition;
-    largeCard.querySelector(".daily-hum").textContent = `${day.humidity}%`;
+    largeCard.querySelector(".daily-hum").textContent = `${day.hum}%`;
 
-    dailyContainer.appendChild(card);
+    dailyContainer.appendChild(largeCard);
   });
 }
-  */
