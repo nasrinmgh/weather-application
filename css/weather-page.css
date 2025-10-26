@@ -137,6 +137,20 @@ input[type="checkbox"]:checked + .slider::after {
   transform: translateX(100%);
 }
 
+.glass {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+.semi-transparent {
+  color: rgba(245, 241, 241, 0.9);
+}
+
 .toggle-options {
   position: relative;
   display: flex;
@@ -146,37 +160,33 @@ input[type="checkbox"]:checked + .slider::after {
   max-width: 25rem;
   height: 30rem;
   scroll-behavior: auto;
+  background: transparent;
 }
 
 .toggle-options .hourly-forecast,
 .daily-forecast {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   max-width: 25rem;
-  padding: 0 0.5rem;
+  gap: 0.5rem;
   height: 30rem;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 30rem;
+  height: 25rem;
   position: absolute;
   top: 0;
+  background: inherit;
+  padding: 1rem;
 }
 
-.glass {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  max-width: 100%;
-  height: auto;
+.daily-forecast {
+  gap: 2rem;
+  scrollbar-width: none;
 }
-
-.semi-transparent {
-  color: rgba(245, 241, 241, 0.9);
+.toggle-options .hourly-forecast::-webkit-scrollbar {
+  display: none;
 }
 
 .hourly-card,
@@ -185,8 +195,100 @@ input[type="checkbox"]:checked + .slider::after {
   justify-content: space-around;
   align-items: center;
   width: 25rem;
-  margin: 0.3rem;
+  /*margin: 0.3rem;*/
   position: relative;
+}
+
+.daily-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.daily-card .left-info,
+.daily-date,
+.right-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.daily-card .left-info {
+  padding: 2rem 1rem;
+}
+
+.daily-date {
+  gap: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.daily-card .date,
+.min-temp {
+  font-size: 0.8rem;
+}
+
+.daily-card .daily-temps {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.daily-card .max-temp,
+.weekday {
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.daily-card .daily-desc {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(245, 241, 241, 0.944);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.daily-card .right-info {
+  padding-right: 1rem;
+  font-size: 0.9rem;
+  color: #67e8f9;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 400;
+}
+
+.hourly-card {
+  margin-bottom: 1rem;
+}
+
+.toggle-options .hourly-card .hourly-time {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+TODO/*.hourly-card .hourly-icon {
+  
+}*/
+
+.toggle-options .hourly-card .hourly-temp {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.toggle-options .hourly-card .hourly-hum {
+  font-size: 0.8rem;
+  color: #67e8f9;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.hourly-hum .reiny-prob {
+  font-size: 0.8rem;
+  color: #67e8f9;
 }
 
 .daily-card .weather-info {
@@ -221,4 +323,5 @@ input[type="checkbox"]:checked + .slider::after {
   fill: #2a1b558f;
   width: 2rem;
   margin: 1rem 0;
+  margin-top: 3rem;
 }

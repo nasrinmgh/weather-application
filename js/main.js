@@ -10,6 +10,7 @@ import {
   setWeatherPageListeners,
   showLoadingState,
   //weatherInitialize,
+  toggleCards,
 } from "./weather-page.js";
 
 async function loadPage(page) {
@@ -216,6 +217,7 @@ function loadHomePageScripts() {
           await getWeather();
           setWeatherPageListeners();
           showWeatherData();
+          toggleCards();
           //loadWeatherPage();
           //showWeatherData();
         });
