@@ -1,17 +1,20 @@
-import { showLoginForm, enabelSignUpForm } from "./forms.js";
-import { auth } from "../APIs/firebase-config.js";
+import {
+  showLoginForm,
+  enabelSignUpForm,
+} from "/weather-application/js/forms.js";
+import { auth } from "/weather-application/APIs/firebase-config.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-import { locationManagerInitialize } from "./locationmanager.js";
+import { locationManagerInitialize } from "/weather-application/js/locationmanager.js";
 import {
   getWeather,
   setWeatherPageListeners,
   showLoadingState,
   //weatherInitialize,
   toggleCards,
-} from "./weather-page.js";
+} from "/weather-application/js/weather-page.js";
 
 async function loadPage(page) {
   try {
