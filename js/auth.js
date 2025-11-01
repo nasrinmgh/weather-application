@@ -1,4 +1,4 @@
-import { auth } from "/weather-application/APIs/firebase-config.js";
+import { auth } from "../APIs/firebase-config.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
