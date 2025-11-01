@@ -32,7 +32,7 @@ export async function credentialCheck() {
     await createUserWithEmailAndPassword(auth, email, pass);
     return true;
   } catch (error) {
-    console.error("Authentication error: error");
+    console.error("Authentication error:", error);
 
     if (error.code === "auth/weak-password") {
       alert("Use stronger password");
