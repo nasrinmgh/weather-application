@@ -146,16 +146,18 @@
         </article>
         <!-- Toggle options -->
         <article class="forecast-toggle">
-            <label class="toggle-switch">
+            <label class="toggle-switch" for="hourlyToggle">
                 <span class="toggle-label" id="hourlyToggle">Hourly Forecast</span>
                 <input type="checkbox" class="toggle-input">
                 <span class="slider"></span>
             </label>
-            <span class="toggle-label" id="dailyToggle">Daily Forecast</span>
+            <label for="dailyToggle">
+                <span class="toggle-label" id="dailyToggle">Daily Forecast</span>
+            </label>
         </article>
         <div class="toggle-options">
-            <div class="daily-forecast"></div>
             <div class="hourly-forecast"></div>
+            <div class="daily-forecast"></div>
         </div>
         <button class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">

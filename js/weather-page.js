@@ -1,13 +1,8 @@
-//export function weatherInitialize() {
-//getWeather();
-
-//what to do if API did not work
-// what to do it it did not show the city or other divs
-//}
-
 //Back home button
 function backToHome() {
   const backHomeBtn = document.querySelector(".back-home");
+  if (backHomeBtn) return;
+
   const weatherPage = document.querySelector(".weather-page");
   const homePage = document.querySelector(".home-page");
   backHomeBtn.addEventListener("click", () => {
@@ -252,17 +247,21 @@ function displayDailyCard(WEATHER_data) {
 export function toggleCards() {
   const dailyContainer = document.querySelector(".daily-forecast");
   const hourlyContainer = document.querySelector(".hourly-forecast");
+  const toggleInput = document.querySelector(".toggle-input"); // your checkbox
+
+  // default view
   dailyContainer.style.display = "none";
+  hourlyContainer.style.display = "block";
 
-  const toggleDaily = document.getElementById("dailyToggle");
-  toggleDaily.addEventListener("click", () => {
-    hourlyContainer.style.display = "none";
-    dailyContainer.style.display = "block";
-
-    const toggleHourly = document.getElementById("hourlyToggle");
-    toggleHourly.addEventListener("click", () => {
-      hourlyContainer.style.display = "block";
+  toggleInput.addEventListener("change", () => {
+    if (toggleInput.checked) {
+      // Checked = Daily Forecast
+      dailyContainer.style.display = "block";
+      hourlyContainer.style.display = "none";
+    } else {
+      // Unchecked = Hourly Forecast
       dailyContainer.style.display = "none";
-    });
+      hourlyContainer.style.display = "block";
+    }
   });
 }

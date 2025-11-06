@@ -12,7 +12,6 @@ import {
   getWeather,
   setWeatherPageListeners,
   showLoadingState,
-  //weatherInitialize,
   toggleCards,
 } from "/weather-application/js/weather-page.js";
 
@@ -207,25 +206,21 @@ function showWeatherData() {
 
 function loadHomePageScripts() {
   const addLocationBtn = document.querySelector(".footer-btn");
-  addLocationBtn.addEventListener("click", () => {
-    const locationBox = document.querySelector(".location-manager");
-    locationBox.classList.add("show");
+  const searchDoneBtn = document.getElementById("search-done-btn");
+  const locationBox = document.querySelector(".location-manager");
 
-    if (locationBox) {
-      document
-        .getElementById("search-done-btn")
-        .addEventListener("click", async () => {
-          locationBox.classList.remove("show");
-          showLoadingState();
-          await getWeather();
-          setWeatherPageListeners();
-          showWeatherData();
-          toggleCards();
-          //loadWeatherPage();
-          //showWeatherData();
-        });
-    }
+  addLocationBtn.addEventListener("click", () => {
+    locationBox.classList.add("show");
     locationManagerInitialize();
+  });
+
+  searchDoneBtn.addEventListener("click", async () => {
+    locationBox.classList.remove("show");
+    showLoadingState();
+    await getWeather();
+    setWeatherPageListeners();
+    showWeatherData();
+    toggleCards();
   });
 }
 

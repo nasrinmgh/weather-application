@@ -74,6 +74,12 @@
   font-size: 0.9rem;
 }
 
+.toggle-label {
+  display: inline-block; /* or block */
+  cursor: pointer;
+  padding: 5px 10px; /* optional, makes it easier to click */
+}
+
 .forecast-toggle #hourlyToggle {
   position: absolute;
   top: 0.6rem;
