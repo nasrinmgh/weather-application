@@ -26,9 +26,7 @@ async function loadPage(page) {
     document.getElementById("app").innerHTML = html;
 
     if (page === "forms") {
-      setTimeout(() => {
-        setupFormsEventListeners();
-      }, 100);
+      setupFormsEventListeners();
     }
     if (page === "home") {
       loadHomePageScripts();
@@ -44,7 +42,11 @@ async function loadPage(page) {
   }
 }
 
+let formsListenersAdded = false;
+
 function setupFormsEventListeners() {
+  if (formsListenersAdded) return;
+
   const signUpBtn = document.getElementById("signUp");
   const signInBtn = document.getElementById("signIn");
   const createAccountBtn = document.getElementById("createAccountBtn");
