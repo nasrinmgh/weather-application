@@ -230,7 +230,7 @@ main .location-manager {
 
 .slide-up {
   transform: translateY(100%);
-  transition: transform 0.5s ease-in;
+  transition: transform 0.2s ease-in;
   height: 60vh;
   width: 100%;
   z-index: 999;
@@ -240,7 +240,7 @@ main .location-manager {
 
 .slide-up.show {
   transform: translateY(0);
-  transition: transform 0.5s ease-out;
+  transition: transform 0.2s ease-out;
 }
 
 body.noscroll {

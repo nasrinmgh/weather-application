@@ -1,7 +1,7 @@
 //Back home button
 function backToHome() {
   const backHomeBtn = document.querySelector(".back-home");
-  if (backHomeBtn) return;
+  if (!backHomeBtn) return;
 
   const weatherPage = document.querySelector(".weather-page");
   const homePage = document.querySelector(".home-page");
@@ -247,21 +247,17 @@ function displayDailyCard(WEATHER_data) {
 export function toggleCards() {
   const dailyContainer = document.querySelector(".daily-forecast");
   const hourlyContainer = document.querySelector(".hourly-forecast");
-  const toggleInput = document.querySelector(".toggle-input"); // your checkbox
+  const toggleInput = document.querySelector(".toggle-input");
 
-  // default view
-  dailyContainer.style.display = "none";
-  hourlyContainer.style.display = "block";
-
-  toggleInput.addEventListener("change", () => {
+  toggleInput.addEventListener("change", (e) => {
     if (toggleInput.checked) {
-      // Checked = Daily Forecast
-      dailyContainer.style.display = "block";
-      hourlyContainer.style.display = "none";
+      // Show daily, hide hourly
+      dailyContainer.classList.remove("hidden");
+      hourlyContainer.classList.add("hidden");
     } else {
-      // Unchecked = Hourly Forecast
-      dailyContainer.style.display = "none";
-      hourlyContainer.style.display = "block";
+      // Show hourly, hide daily
+      hourlyContainer.classList.remove("hidden");
+      dailyContainer.classList.add("hidden");
     }
   });
 }

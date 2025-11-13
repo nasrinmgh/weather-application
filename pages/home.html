@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/weather-application/css/weather-page.css">
-    <link rel="stylesheet" href="/weather-application/css/home.css">
+    <link rel="stylesheet" href="css/weather-page.css">
+    <link rel="stylesheet" href="css/home.css">
 
     <title>Home</title>
 </head>
@@ -152,14 +152,12 @@
 
         <!-- Toggle options -->
         <article class="forecast-toggle">
-            <label class="toggle-switch" for="hourlyToggle">
-                <span class="toggle-label" id="hourlyToggle">Hourly Forecast</span>
-                <input type="checkbox" class="toggle-input">
+            <label class="toggle-switch" for="forecastToggle">
+                <input type="checkbox" class="toggle-input" id="forecastToggle">
                 <span class="slider"></span>
             </label>
-            <label for="dailyToggle">
-                <span class="toggle-label" id="dailyToggle">Daily Forecast</span>
-            </label>
+            <span class="toggle-label" id="hourlyToggle">Hourly Forecast</span>
+            <span class="toggle-label" id="dailyToggle">Daily Forecast</span>
         </article>
         <div class="toggle-options">
             <div class="hourly-forecast"></div>
@@ -167,9 +165,9 @@
         </div>
     </section>
 
-    <script src="/weather-application/js/main.js" type="module"></script>
-    <script src="/weather-application/js/locationmanager.js" type="module"></script>
-    <script src="/weather-application/js/weather-page.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+    <script src="js/locationmanager.js" type="module"></script>
+    <script src="js/weather-page.js" type="module"></script>
 </body>
 
 </html>
