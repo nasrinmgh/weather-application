@@ -45,24 +45,13 @@ export async function credentialCheck() {
   }
 }
 
-export function showWelcome() {
-  const msgBox = document.createElement("div");
-  msgBox.innerHTML = "Signed up successfully!";
-  const registerOption = document.querySelector(".register-option");
-  registerOption.append(msgBox);
-
-  setTimeout(() => {
-    msgBox.classList.add("msg-box");
-  }, 1000);
-}
-
 // TO SIGN UP
 const signUpForm = document.querySelector(".register-form form");
 signUpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const successSignUp = await credentialCheck();
   if (successSignUp) {
-    showWelcome();
+    return true;
   }
 });
 
@@ -92,3 +81,20 @@ export async function loginUser(email, password) {
     return false;
   }
 }
+/*
+export function showEnterStatus() {
+  const msgBox = document.createElement("div");
+  document.body.appendChild(msgBox);
+  msgBox.classList.add("msg-box glass fade-in");
+  if (loginUser) {
+    msgBox.innerHTML = "";
+    msgBox.innerHTML = `Logged in successfully!
+  Welcome back!`;
+  }
+  if (credentialCheck) {
+    msgBox = "";
+    msgBox.innerHTML = `Account created successfully!
+Welcome to Weather app!`;
+  }
+}
+  */

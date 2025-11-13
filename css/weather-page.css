@@ -1,5 +1,5 @@
 .fade-in {
-  animation: fadeIn 3s;
+  animation: fadeIn 1s;
 }
 
 @keyframes fadeIn {
@@ -72,19 +72,19 @@
   justify-content: center;
   font-weight: 500;
   font-size: 0.9rem;
+  position: relative;
 }
 
 .toggle-label {
-  display: inline-block; /* or block */
+  display: inline-block;
   cursor: pointer;
-  padding: 5px 10px; /* optional, makes it easier to click */
+  padding: 5px 10px;
 }
 
 .forecast-toggle #hourlyToggle {
   position: absolute;
-  top: 0.6rem;
   z-index: 10;
-  left: 2.7rem;
+  left: 2.5rem;
   color: #777777a9;
   font-weight: 600;
   font-size: 0.8rem;
@@ -93,7 +93,7 @@
 
 .forecast-toggle #dailyToggle {
   position: absolute;
-  right: 4rem;
+  right: 3rem;
   color: #777777;
   font-weight: 600;
   font-size: 0.8rem;
@@ -103,9 +103,7 @@
 .toggle-switch {
   display: inline-block;
   position: relative;
-  position: relative;
   width: 25rem;
-  margin: 1rem;
 }
 
 .slider {
@@ -157,6 +155,11 @@ input[type="checkbox"]:checked + .slider::after {
   color: rgba(245, 241, 241, 0.9);
 }
 
+.hidden {
+  opacity: 0;
+  transition: all 300ms ease;
+}
+
 .toggle-options {
   position: relative;
   display: flex;
@@ -170,7 +173,7 @@ input[type="checkbox"]:checked + .slider::after {
 }
 
 .toggle-options .hourly-forecast,
-.daily-forecast {
+.toggle-options .daily-forecast {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -185,6 +188,13 @@ input[type="checkbox"]:checked + .slider::after {
   top: 0;
   background: inherit;
   padding: 1rem;
+}
+
+.toggle-options .hourly-forecast.visible,
+.toggle-options .daily-forecast.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .toggle-options .hourly-forecast {
@@ -320,16 +330,15 @@ TODO/*.hourly-card .hourly-icon {
 .back-home {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   background: transparent;
+  position: relative;
+  top: 0;
+  right: 12rem;
   border: 0;
   width: 2rem;
   height: 2rem;
-  margin: 2rem 0;
-  margin-top: 6rem;
-  position: absolute;
-  bottom: 0;
-  z-index: 1000;
+  z-index: 9999;
   pointer-events: auto;
   cursor: pointer;
 }
@@ -337,6 +346,4 @@ TODO/*.hourly-card .hourly-icon {
 .back-home svg {
   fill: #2a1b558f;
   width: 2rem;
-  margin: 1rem 0;
-  margin-top: 3rem;
 }

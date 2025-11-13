@@ -1,19 +1,17 @@
-import {
-  showLoginForm,
-  enabelSignUpForm,
-} from "/weather-application/js/forms.js";
-import { auth } from "/weather-application/APIs/firebase-config.js";
+import { showLoginForm, enabelSignUpForm } from "./forms.js";
+import { auth } from "../APIs/firebase-config.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-import { locationManagerInitialize } from "/weather-application/js/locationmanager.js";
+import { locationManagerInitialize } from "./locationmanager.js";
 import {
   getWeather,
   setWeatherPageListeners,
   showLoadingState,
   toggleCards,
-} from "/weather-application/js/weather-page.js";
+} from "./weather-page.js";
+//import { showEnterStatus } from "./auth";
 
 async function loadPage(page) {
   try {
@@ -129,13 +127,13 @@ async function handleCreateAccount() {
       password
     );
     console.log("User created:", userCredential.user);
-    alert("Account created successfully!");
-
+    //alert("Account created successfully!");
+    //   showEnterStatus();
     // Show success message and switch back to login
-    showWelcome();
+    /*showWelcome();
     setTimeout(() => {
       showLoginForm();
-    }, 2000);
+    }, 2000); */
   } catch (error) {
     console.error("Error creating account:", error);
 
@@ -167,6 +165,7 @@ async function handleLogin() {
       loginPassword
     );
     console.log("User signed in:", userCredential.user);
+    showEnterStatus();
     loadPage("home");
   } catch (error) {
     console.error("Error signing in:", error);
@@ -185,8 +184,9 @@ async function handleLogin() {
   }
 }
 
-function showWelcome() {
+/*function showWelcome() {
   const msgBox = document.createElement("div");
+  msgBox.classList.add("welcome-message");
   msgBox.innerHTML = "Account created successfully!";
   document.body.appendChild(msgBox);
 
@@ -194,12 +194,7 @@ function showWelcome() {
     msgBox.remove();
   }, 2000);
 }
-
-//function loadWeatherPage() {
-// weatherInitialize();
-//setWeatherPageListeners();
-//}
-
+*/
 function showWeatherData() {
   const weatherPage = document.querySelector(".weather-page");
   weatherPage.style.display = "flex";
