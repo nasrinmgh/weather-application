@@ -323,15 +323,9 @@ form button {
   transition: filter 400ms ease;
 }
 
-.msg-overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(4px);
-  z-index: 9998;
+.msg-anima {
+  animation: all 300ms ease;
+  animation-duration: 1s;
 }
 
 .msg-box {
@@ -347,11 +341,6 @@ form button {
   transform: translateY(8px);
   opacity: 0;
   transition: transform 180ms ease, opacity 180ms ease;
-}
-
-.msg-box.show {
-  transform: translateY(0);
-  opacity: 1;
 }
 
 .fade-in {
