@@ -46,14 +46,19 @@ export async function credentialCheck() {
 }
 
 // TO SIGN UP
-const signUpForm = document.querySelector(".register-form form");
-signUpForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const successSignUp = await credentialCheck();
-  if (successSignUp) {
-    return true;
+// auth.js (change: export handler, do NOT attach listeners at module load)
+export async function handleSignUpSubmit(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  try {
+    const successSignUp = await credentialCheck();
+    if (successSignUp) {
+      return true;
+    }
+  } catch (err) {
+    console.error("Sign-up error:", err);
+    return false;
   }
-});
+}
 
 // TO LOGIN
 export async function loginUser(email, password) {
@@ -81,20 +86,24 @@ export async function loginUser(email, password) {
     return false;
   }
 }
-/*
+
 export function showEnterStatus() {
-  const msgBox = document.createElement("div");
+  const oldMsg = document.querySelector(".msg-box");
+  if (oldMsg) {
+    oldMsg.remove();
+  }
+  let msgBox = document.createElement("div");
+  msgBox.classList.add("msg-box", "box-anima", "glass");
   document.body.appendChild(msgBox);
-  msgBox.classList.add("msg-box glass fade-in");
   if (loginUser) {
-    msgBox.innerHTML = "";
-    msgBox.innerHTML = `Logged in successfully!
+    msgBox.textContent = `Logged in successfully!
   Welcome back!`;
+    return;
   }
   if (credentialCheck) {
-    msgBox = "";
+    msgBox.textContent = "";
     msgBox.innerHTML = `Account created successfully!
 Welcome to Weather app!`;
+    return;
   }
 }
-  */

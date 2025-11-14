@@ -1,4 +1,5 @@
 import { showLoginForm, enabelSignUpForm } from "./forms.js";
+import { handleSignUpSubmit } from "./auth.js";
 import { auth } from "../APIs/firebase-config.js";
 import {
   createUserWithEmailAndPassword,
@@ -11,7 +12,7 @@ import {
   showLoadingState,
   toggleCards,
 } from "./weather-page.js";
-//import { showEnterStatus } from "./auth";
+import { showEnterStatus } from "./auth.js";
 
 async function loadPage(page) {
   try {
@@ -128,12 +129,12 @@ async function handleCreateAccount() {
     );
     console.log("User created:", userCredential.user);
     //alert("Account created successfully!");
-    //   showEnterStatus();
+    showEnterStatus();
     // Show success message and switch back to login
-    /*showWelcome();
+    /*showWelcome();*/
     setTimeout(() => {
       showLoginForm();
-    }, 2000); */
+    }, 2000);
   } catch (error) {
     console.error("Error creating account:", error);
 
