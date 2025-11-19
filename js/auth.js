@@ -87,7 +87,7 @@ export async function loginUser(email, password) {
   }
 }
 
-export function showEnterStatus() {
+export function showEnterStatus(status) {
   const oldMsg = document.querySelector(".msg-box");
   if (oldMsg) {
     oldMsg.remove();
@@ -95,15 +95,19 @@ export function showEnterStatus() {
   let msgBox = document.createElement("div");
   msgBox.classList.add("msg-box", "box-anima", "glass");
   document.body.appendChild(msgBox);
-  if (loginUser) {
+  if (status === "login") {
     msgBox.textContent = `Logged in successfully!
   Welcome back!`;
     return;
   }
-  if (credentialCheck) {
+  if (status === "signup") {
     msgBox.textContent = "";
-    msgBox.innerHTML = `Account created successfully!
+    msgBox.textContent = `Account created successfully!
 Welcome to Weather app!`;
     return;
   }
+
+  setTimeout(() => {
+    if (msgBox) msgBox.remove();
+  }, 2000);
 }

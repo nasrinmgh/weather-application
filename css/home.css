@@ -107,6 +107,7 @@
   font-size: small;
   color: #ffffff;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .footer-btn p {

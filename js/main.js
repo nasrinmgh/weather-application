@@ -122,19 +122,15 @@ async function handleCreateAccount() {
   }
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(
+    let userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
-    console.log("User created:", userCredential.user);
-    //alert("Account created successfully!");
-    showEnterStatus();
-    // Show success message and switch back to login
-    /*showWelcome();*/
-    setTimeout(() => {
-      showLoginForm();
-    }, 2000);
+    if (userCredential) {
+      showEnterStatus("signup");
+    }
+    showLoginForm();
   } catch (error) {
     console.error("Error creating account:", error);
 
@@ -160,13 +156,14 @@ async function handleLogin() {
   }
 
   try {
-    const userCredential = await signInWithEmailAndPassword(
+    let userCredential = await signInWithEmailAndPassword(
       auth,
       loginEmail,
       loginPassword
     );
-    console.log("User signed in:", userCredential.user);
-    showEnterStatus();
+    if (userCredential) {
+      showEnterStatus("login");
+    }
     loadPage("home");
   } catch (error) {
     console.error("Error signing in:", error);
@@ -185,17 +182,6 @@ async function handleLogin() {
   }
 }
 
-/*function showWelcome() {
-  const msgBox = document.createElement("div");
-  msgBox.classList.add("welcome-message");
-  msgBox.innerHTML = "Account created successfully!";
-  document.body.appendChild(msgBox);
-
-  setTimeout(() => {
-    msgBox.remove();
-  }, 2000);
-}
-*/
 function showWeatherData() {
   const weatherPage = document.querySelector(".weather-page");
   weatherPage.style.display = "flex";

@@ -252,6 +252,7 @@ form button {
   font-size: 1rem;
   margin: 0.3rem;
   align-self: center;
+  cursor: pointer;
 }
 
 .register-request {
@@ -281,6 +282,7 @@ form button {
 .agreement-check #agreeCheck {
   width: 0.9rem;
   height: 0.9rem;
+  cursor: pointer;
 }
 
 .register-option .back-to-login {
@@ -323,24 +325,35 @@ form button {
   transition: filter 400ms ease;
 }
 
-.msg-anima {
+.box-anima {
   animation: all 300ms ease;
   animation-duration: 1s;
 }
 
 .msg-box {
   z-index: 9999;
-  max-width: 420px;
-  width: calc(100% - 2rem);
+  width: 15rem;
+  height: 3rem;
+  border-radius: 1.5rem;
   padding: 1rem 1.25rem;
-
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: cursive;
+  font-weight: 500;
+  line-height: 1.5rem;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
   text-align: center;
   white-space: pre-line;
-  transform: translateY(8px);
-  opacity: 0;
-  transition: transform 180ms ease, opacity 180ms ease;
+  opacity: 1;
+  position: fixed;
+  transform: translateX(100%);
+  transition: all 300 ease;
+  align-content: center;
+}
+
+.slide-in {
+  transform: translateX(-100%);
+  opacity: 1;
+  transition: all 300 ease;
 }
 
 .fade-in {
