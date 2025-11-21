@@ -92,22 +92,26 @@ export function showEnterStatus(status) {
   if (oldMsg) {
     oldMsg.remove();
   }
-  let msgBox = document.createElement("div");
-  msgBox.classList.add("msg-box", "box-anima", "glass");
-  document.body.appendChild(msgBox);
+
+  const msgBox = document.createElement("div");
+  msgBox.classList.add("msg-box", "glass");
+  msgBox.style.pointerEvents = "auto";
+
   if (status === "login") {
-    msgBox.textContent = `Logged in successfully!
-  Welcome back!`;
-    return;
+    msgBox.textContent = `Logged in successfully!\nWelcome back!`;
+  } else if (status === "signup") {
+    msgBox.textContent = `Account created successfully!\nWelcome to Weather app!`;
+  } else {
+    msgBox.textContent = status || "Done";
   }
-  if (status === "signup") {
-    msgBox.textContent = "";
-    msgBox.textContent = `Account created successfully!
-Welcome to Weather app!`;
-    return;
-  }
+  document.body.appendChild(msgBox);
+
+  msgBox.offsetHeight;
+  msgBox.classList.add("slide-in");
 
   setTimeout(() => {
-    if (msgBox) msgBox.remove();
+    msgBox.classList.remove("slide-in");
+    msgBox.classList.add("hidden");
+    setTimeout(() => msgBox.remove(), 350);
   }, 2000);
 }

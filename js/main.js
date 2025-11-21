@@ -192,7 +192,7 @@ function loadHomePageScripts() {
   const addLocationBtn = document.querySelector(".footer-btn");
   const searchDoneBtn = document.getElementById("search-done-btn");
   const locationBox = document.querySelector(".location-manager");
-
+  // locationBox.classList.remove("show");
   addLocationBtn.addEventListener("click", () => {
     locationBox.classList.add("show");
     locationManagerInitialize();

@@ -123,6 +123,11 @@
 
 /* Location Manager box*/
 main .location-manager {
+  position: fixed;
+  left: 33.7%;
+  width: 100%;
+  height: 60vh;
+  z-index: 999;
   bottom: 0;
   display: flex;
   flex-direction: column;
@@ -133,6 +138,21 @@ main .location-manager {
   background-color: rgb(68, 66, 141);
   border: transparent;
   border-radius: 12px 12px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.location-manager.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s;
+}
+
+body.noscroll {
+  overflow-y: hidden;
 }
 
 .location-manager .slide-header {
@@ -228,25 +248,16 @@ main .location-manager {
   cursor: pointer;
   flex-shrink: 0;
 }
-
+/*
 .slide-up {
   transform: translateY(100%);
-  transition: transform 0.2s ease-in;
   height: 60vh;
   width: 100%;
   z-index: 999;
   position: fixed;
   bottom: 0;
 }
-
-.slide-up.show {
-  transform: translateY(0);
-  transition: transform 0.2s ease-out;
-}
-
-body.noscroll {
-  overflow-y: hidden;
-}
+*/
 
 .saved-cities {
   display: flex;
