@@ -87,23 +87,31 @@ export async function loginUser(email, password) {
   }
 }
 
-export function showEnterStatus() {
+export function showEnterStatus(status) {
   const oldMsg = document.querySelector(".msg-box");
   if (oldMsg) {
     oldMsg.remove();
   }
-  let msgBox = document.createElement("div");
-  msgBox.classList.add("msg-box", "box-anima", "glass");
+
+  const msgBox = document.createElement("div");
+  msgBox.classList.add("msg-box", "glass");
+  msgBox.style.pointerEvents = "auto";
+
+  if (status === "login") {
+    msgBox.textContent = `Logged in successfully!\nWelcome back!`;
+  } else if (status === "signup") {
+    msgBox.textContent = `Account created successfully!\nWelcome to Weather app!`;
+  } else {
+    msgBox.textContent = status || "Done";
+  }
   document.body.appendChild(msgBox);
-  if (loginUser) {
-    msgBox.textContent = `Logged in successfully!
-  Welcome back!`;
-    return;
-  }
-  if (credentialCheck) {
-    msgBox.textContent = "";
-    msgBox.innerHTML = `Account created successfully!
-Welcome to Weather app!`;
-    return;
-  }
+
+  msgBox.offsetHeight;
+  msgBox.classList.add("slide-in");
+
+  setTimeout(() => {
+    msgBox.classList.remove("slide-in");
+    msgBox.classList.add("hidden");
+    setTimeout(() => msgBox.remove(), 350);
+  }, 2000);
 }

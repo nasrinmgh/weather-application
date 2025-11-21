@@ -6,7 +6,7 @@ export function enabelSignUpForm() {
 
   registerForm.classList.add("active");
   loginForm.classList.remove("active");
-  console.log("console log anabled");
+  //console.log("console log anabled");
 }
 
 // TO DISPLAY LOGIN FORM AFTER REGISTER
