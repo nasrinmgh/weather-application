@@ -132,7 +132,8 @@ input {
 }
 
 .login-option,
-.register-option {
+.register-option,
+.resetpass-option {
   position: absolute;
   top: 0;
   left: 0;
@@ -170,10 +171,12 @@ input {
 .page-top p {
   margin: 0;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .login-form,
-.register-form {
+.register-form,
+.reset-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -270,8 +273,14 @@ form button {
 
 .register-request a {
   font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 500ms ease;
 }
 
+.register-request a:hover {
+  text-decoration: underline;
+  transition: all 500s ease;
+}
 .agreement-check {
   display: flex;
   flex-direction: row;
@@ -327,8 +336,9 @@ form button {
 
 .msg-box {
   z-index: 9999;
-  width: 15rem;
+  width: 18rem;
   max-width: calc(100% - 2rem);
+  height: 4rem;
   padding: 1rem 1.25rem;
   box-sizing: border-box;
   font-family: cursive;
@@ -340,10 +350,10 @@ form button {
   white-space: pre-line;
   opacity: 0;
   position: fixed;
-  top: 25%;
+  top: 10%;
   right: 38%;
   transform: translateX(40%);
-  transition: transform 300ms ease, opacity 300ms ease;
+  transition: transform 400ms ease, opacity 400ms ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,14 +367,14 @@ form button {
   /*display: none;
 */
   transform: translateX(100%);
-  transition: all 500ms ease-out;
+  transition: all 400ms ease-out;
   opacity: 0;
 }
 
 .msg-box.slide-in {
-  transform: translateX(0);
+  transform: translateX(8%);
   opacity: 1;
-  transition: all 500ms ease-in;
+  transition: all 400ms ease-in;
 }
 
 .fade-in {

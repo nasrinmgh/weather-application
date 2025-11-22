@@ -1,5 +1,6 @@
 import { showLoginForm, enabelSignUpForm } from "./forms.js";
 import { handleSignUpSubmit } from "./auth.js";
+import { goToResetForm } from "./forms.js";
 import { auth } from "../APIs/firebase-config.js";
 import {
   createUserWithEmailAndPassword,
@@ -48,10 +49,10 @@ function setupFormsEventListeners() {
 
   const signUpBtn = document.getElementById("signUp");
   const signInBtn = document.getElementById("signIn");
-  const createAccountBtn = document.getElementById("createAccountBtn");
+  const forgetPassBtn = document.getElementById("resetPassLink");
   const registerForm = document.querySelector(".register-form form");
   const loginForm = document.querySelector(".login-form form");
-  const backToSignIn = document.getElementById("backToSignIn");
+  const backToSignIn = document.querySelectorAll(".backToSignIn");
 
   // sign up link- switch to register form
   if (signUpBtn) {
@@ -61,10 +62,12 @@ function setupFormsEventListeners() {
     });
   }
 
-  if (backToSignIn) {
-    backToSignIn.addEventListener("click", (e) => {
-      e.preventDefault();
-      showLoginForm();
+  if (backToSignIn.length) {
+    backToSignIn.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        showLoginForm();
+      });
     });
   }
 
@@ -73,6 +76,14 @@ function setupFormsEventListeners() {
     signInBtn.addEventListener("click", (e) => {
       e.preventDefault();
       handleLogin();
+    });
+  }
+
+  // Reset pass form
+  if (forgetPassBtn) {
+    forgetPassBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      goToResetForm();
     });
   }
 

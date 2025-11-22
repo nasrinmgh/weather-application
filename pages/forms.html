@@ -29,13 +29,32 @@
                         <input id="logEmail" class="glass" type="text" name="user-email">
                         <label for="logPassword" class="semi-transparent">Password</label>
                         <input id="logPassword" class="glass" type="password" name="user-password">
-                        <a href="" class="semi-transparent" type="button">Forgot password?</a>
+                        <a id="resetPassLink" href="#" class="semi-transparent" type="button">Forgot password?</a>
                         <button id="signIn" type="submit">Sign in</button>
                     </form>
                 </div>
                 <div class="register-request">
                     <p class="semi-transparent">Don't have an account?</p>
                     <a id="signUp" href="#" class="semi-transparent">Sign up</a>
+                </div>
+            </div>
+
+            <!-- FORGOT PASSWORD FORM-->
+            <div class="resetpass-option smooth-transition">
+                <div class="page-top">
+                    <h4 class="open-sans">Reset Password</h4>
+                    <p class="semi-transparent open-sans">Enter your email address and we'll send you <br>a reset link
+                    </p>
+                </div>
+                <div class="reset-form">
+                    <form>
+                        <label for="reEnterEmail" class="semi-transparent">Email</label>
+                        <input id="reEnterEmail" class="glass" type="text" name="user-email">
+                        <button id="sendLink">Send Reset Link</button>
+                    </form>
+                </div>
+                <div class="back-to-login">
+                    <a class="backToSignIn semi-transparent" href="#">Go back to Sign in</a>
                 </div>
             </div>
 
@@ -66,7 +85,7 @@
                 </div>
                 <div class="back-to-login">
                     <p class="semi-transparent">Already have an account?</p>
-                    <a id="backToSignIn" href="#" class="semi-transparent">Go back to Sign in</a>
+                    <a class="backToSignIn semi-transparent" href="#">Go back to Sign in</a>
                 </div>
         </article>
         <article class="copyright-footer">
